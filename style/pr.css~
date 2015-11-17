@@ -1,0 +1,127 @@
+/** Palette **/
+/** #88DDFF   ice blue
+ *  #BBEEFF   blue-white
+ *  #CCC988   pale orange
+ *  #FF8800   bright orange
+ */
+
+/**
+body {
+   background: -webkit-linear-gradient(left top, #000000, #333333);
+   background: -o-linear-gradient(bottom right, #000000, #333333);
+   background: -moz-linear-gradient(bottom right, #000000, #333333);
+   background: linear-gradient(to bottom right, #000000, #333333);
+} */
+
+body {
+   background: #eee;
+}
+
+a {
+   color: #0df;
+}
+
+
+
+
+/** MAIN HEADER **/
+.top-fix {
+   //position: fixed;
+   width: 100%;
+   left: 0px;
+   top: 0px;
+}
+
+#brand-bar {
+   width: 100%;
+   margin-top: -3%;
+   background-image: url(../images/logo/logoOrange.png);
+   background-repeat: no-repeat;
+   background-size: 19%;
+   background-position: 0 0;
+}
+
+#biz-name {
+   width: 100;
+   font-family: "Julius Sans One", serif;
+   font-size: 4.3em;
+   line-height: 1em;
+   color: #EEEEEE;
+   margin: 3% 0 0 10%;
+   padding-top: 0.85em;
+   padding-bottom: 0.1em;
+   text-shadow: -0.04em 0.02em 0.06em #00DDFF; /* #FFA500; */
+}
+
+
+
+
+
+/** MAIN NAV **/
+ul.nav {
+   width: 100%;
+}
+
+.navbar-inverse .navbar-nav > li > a {
+   color: #0df;
+   font-family: "Gruppo", sans-serif;
+   font-size: 1.2em;
+}
+
+.dropdown-menu > li {
+   font-size: 0.8em;
+}
+
+.dropdown-menu > li > a {
+   color: #0df;
+}
+
+.dropdown-menu > li > a:hover {
+   background: transparent;
+}
+
+
+
+
+
+/** MAIN **/
+#main {
+   font-size: 1.1em;
+   //color: #eee;
+}
+
+
+
+
+/** FOOTER **/
+footer {
+   font-family: "Gruppo", sans-serif;
+   font-size: 1.1em;
+   color: #0df;
+   text-align: center;
+   margin: 3em 0;
+}
+
+
+
+
+
+/** GENERAL STYLES **/
+.orange-top {
+   border-top: thin solid #FF8800;
+}
+
+.orange-bottom {
+   border-bottom: thin solid #ff8800;
+}
+
+.grey-4 {
+   background: #444;
+}
+
+.gradient {
+   background: -webkit-linear-gradient(left top, #000000, #444);
+   background: -o-linear-gradient(bottom right, #000000, #444);
+   background: -moz-linear-gradient(bottom right, #000000, #444);
+   background: linear-gradient(to bottom right, #000000, #444);
+}

@@ -1,0 +1,379 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>Previous Work | Phillips Research & Analytics</title>
+  <meta charset="utf-8" />
+  <link rel="stylesheet" href="style/main.css" />
+  <link 
+     href="http://fonts.googleapis.com/css?family=Caudex|Ubuntu|Muli|Philosopher|Cinzel|Michroma|Julius+Sans+One|Forum|Gruppo|Marcellus+SC" 
+     rel="stylesheet" type="text/css" />
+</head>
+
+
+
+<body>
+  <div id="container">
+    <header>
+      <span id="splash">Phillips Research and Analytics</span>
+    </header>
+
+    <div id="nav-main">
+      <!-- nav -->
+      <aside>
+	<nav>
+	  <ul id="navList">
+	    <li><a href="index.html">Home</a></li>
+            <li><a href="anthropology.html">Anthropology</a></li>
+            <li><a href="environmental.html">Environmental Sciences</a></li>
+            <li><a href="linguistics.html">Linguistics</a></li>
+	    <li><a href="academics.html">Scientists/Academics</a></li>
+	    <li><a href="about.html">About Us</a></li>
+	    <li><a href="work.html">Past Work</a></li>
+            <li><a href="probono.html">Pro Bono</a></li>
+	    <li><a href="contact.html">Contact</a></li>
+	  </ul>
+	</nav>
+      </aside>
+
+      <div id="main">
+	<div class="center small">
+	  Jump to: <a href="work.html#social">Social Sciences</a> /
+	  <a href="work.html#government">Governmental Work</a>
+	</div><br />
+
+	<hgroup>
+	  <h1>Environmental Sciences</h1>
+	  <h2>River Otters in Illinois</h2>
+	  <h3>Tracking Toxins in the Watershed</h3>
+	</hgroup>
+	<p>
+	  <a href="http://www.sciencedirect.com/science/article/pii/S0147651313003400">Link to
+	    publication.</a><br />
+	  Working with a team of scientists at the 
+	  <a href="http://wwx.inhs.illinois.edu/">Illinois Natural History Survey</a>, (part of 
+	  the Prairie Research Institute at the University of Illinois at Urbana-Champaign), 
+	  PRA principal, Damian Satterthwaite-Phillips provided statistical support, and aided in
+	  research on levels of various toxic chemicals in Illinois' watersheds. Some of these 
+	  chemicals come from pesticides (some of which have been illegal for several decades) 
+	  and some of their byproducts, while others are common in electronics and transformers.
+	</p>
+	<p>
+	  Because these chemicals accumulate up the food chain, predators such as otters tend to
+	  accumulate higher amounts of these toxins than other organisms, and are hence known as
+	  "sentinel species" because they register dangerous levels of toxins sooner than other
+	  species.  
+	</p>
+	<p>
+	  We compared toxin levels in otter livers today to those reported 25-30 years ago.  
+	  Surprisingly, we found levels of dieldrin, a toxic byproduct of some 
+	  pesticides, are higher now than they were 30 years ago, even though those products have
+	  been banned for about 25 years.  In fact, the levels of dieldrin found in Illinois are
+	  higher than those ever reported anywhere else in the US.
+	</p>
+	<div class="highlight">
+	  <p>
+	    <em>Statistical Highlights</em><br />
+	    <img src="images/toxins.png" class="frame left" width="418px" heigth="399px">
+	    We did not have the raw data from the earlier research, only means and standard 
+	    deviations.  Using kernel density estimates of the distributions of the toxins in the 
+	    population today, we assumed that the shape of the distribution was similar 25-30 years
+	    ago.  We therefore simulated the earlier distribution as identical in shape to the 
+	    modern distribution, but with a shifted mean to match the known data.  By doing 
+	    repeated random samplings from the simulated distrubution, we confirmed that the 
+	    simulated data matched the published data's standard deviations, suggesting the 
+	    simulated distribution was a good match.  By doing thousands of bootstrapped samplings
+	    from the simulated distribution that mimicked the sample size in the earlier study, we
+	    were able to produce a 95% confidence interval of the mean levels of toxins in the
+	    earlier study, and determine if they differed significantly from the mean levels seen 
+	    today.
+	  </p>
+	  <p>
+	    The image at the left shows the distribution estimated from our data.  The axis at the 
+	    bottom shows the concentration of the chemical (here: heptachlor epoxide) in parts per
+	    billion, and the ticks indicate our actual data points.  The axis at the top is 
+	    rescaled to simulate the earlier data, such that the mean matches that of the earlier
+	    publication.
+	  </p>
+	</div><!--.highlight-->
+	<p class="small">
+	  Other scientists involved in this project: Samantha K Carpenter, Nohra E 
+	  Mateus-Pinilla, Nelda Rivera (Illinois Natural History Survey, UIUC), Kuldeep Singh 
+	  (College of Veterinary Medicine, UIUC), Andreas Lehner (Diagnostic Center for 
+	  Population and Animal Health, Michigan State University), Robert Bluett (Illinois 
+	  Department of Natural Resources), Jan E Novakofski (Animal Sciences, UIUC).
+	</p>
+	
+	<h3 class="clear">Inferring Diet from fat composition</h3>
+	<p>
+	  <a href="http://www.janimscitechnol.com/content/56/1/16/abstract">
+	    Link to publication</a>.<br />
+	  River otters have recently been reintroduced to much of Illinois and the Midwest after
+	  being wiped out from these areas during the 1800s.  However, because they have been 
+	  absent from this region for so long, little is known about their diet in this region.
+	</p>
+	<p>
+	  In other regions, studies of otter stomach contents and scats (feces), indicate that 
+	  they consume large amounts of fish, as well as crayfish, frogs, and various other 
+	  amphibians, reptiles, and occasionally birds, and other mammals.  While otters are 
+	  occasionally seen eating shellfish, little was known about how much they contribute to
+	  the otter diet, because the contents are more fully digested and do not show up in 
+	  scats, and are difficult to identify from stomach contents.
+	</p>
+	<p>
+	  PRA principal, Damian Satterthwaite-Phillips led a research project that demonstrated 
+	  that the different taxa in the otter diet have unique fatty acid signatures.  By 
+	  comparing the fatty acids found in otter fat with those found in different prey 
+	  species, the otter diet can be inferred to a very close approximation. We discovered 
+	  that shellfish make up a much larger portion of the diet than previously suspected. 
+	  This is important in areas of Illinois where there is high mussel diversity and many of
+	  the species are endangered.  These findings can aid wildlife managers in protecting 
+	  endangered mussels.
+	</p>
+
+	<div class="highlight">
+	  <p>
+	    <em>Statistical Highlights</em><br />
+	    <img src="images/fatComposition.png" class="frame left" width="418px" height="376px" />
+	    The image to the left shows the relative proportion of different fatty acids found in
+	    different taxonomic groups, as determined from gas-liquid chromatography.  The 
+	    different fatty acids are indicated along the x-axis. Chromatography works by 
+	    separating different molecules (in this case, fatty acids). The fatty acids have
+	    different molecular weights, typically causing the heavier molecules to pass through 
+	    the chromatograph more slowly. However, there is some variation in retention time for
+	    each sample, creating some ambiguity as to the identity of each molecule.  From other
+	    literature published on fatty acids, we knew how many unique fatty acids should be 
+	    present.  By running a k-means clustering algorithm, we were able to determine which 
+	    molecules in each sample had the highest probability of matching the identity of the 
+	    molecules in a standard with known fatty acids.
+	  </p>
+	  <p class="clear">
+	    <img src="images/PCA.png" class="frame left" width="418px" height="367px"/>
+	    Principal components analysis (PCA) is a method that takes high-dimensional data, and 
+	    projects those data onto fewer dimensions in a way that maximally preserves the 
+	    variation between variables.  As an analogy, consider a 3-dimensional object like an 
+	    umbrella, and the lower (2) dimensional shadow that it casts.  Turned one direction, 
+	    the shadow may only appear as a circle, but turned another, the whole profile of the
+	    umbrella is apparent.  PCA acts similarly to the second case--preserving the maximum 
+	    amount of variability, while simultaneously reducing the dimensionality.  The image to
+	    the left shows the PCA for different animal species.  The original variables were the 
+	    percentages of each of the 60 fatty acids analyzed.  This 60-dimensional data is 
+	    projected is shown here projected onto just 2 dimensions (principal components), that 
+	    preserve the most variation.  This allows us to see which species are more similar to 
+	    each other in terms of their fatty acid profiles.  For example, the otters (light blue
+	    points) largely overlap with the fish (red), indicating that fish and otters have 
+	    fairly similar fatty acid compositions.  Molluscs (dark blue), by contrast, form a 
+	    separate cluster, indicating a rather different fatty acid profile.
+	  </p>
+	  <p>
+	    <a href="http://www.esajournals.org/doi/abs/10.1890/02-4105">Quantitative fatty acid 
+	    signature analysis</a> is a method developed by Professor Sara Iverson and her 
+	    colleagues. It is based on the idea that a predator's fatty acid profile is more or 
+	    less representative of its diet, when corrected for the fact that different prey 
+	    species in the diet have different fat content.  (In our study, mussel species were
+	    typically much fattier than crayfish, for example.)  Using their methods, we made use 
+	    of an optimization routine (a "hill-climbing" algorithm, also known as 
+	    "gradient-descent") that found the most probable proportion of each type of prey 
+	    species in the otter diet.
+	  </p>
+	  <p>
+	    This research determined that shellfish make up a considerably larger part of the 
+	    otter diet than previously suspected.  In areas like Illinois, where otters have been 
+	    successfully reintroduced, this information is important, because there is high 
+	    shellfish diversity in some regions, and many of the local species are endangered.  
+	    The findings from this research will allow wildlife managers to better protect those 
+	    endangered species (for instance, by limiting otter trapping to those areas where
+	    shellfish are at the highest risk).
+	  </p>
+	  </div><!--.highlight-->
+	<p class="small">
+          Other scientists involved in this project: Jan E Novakofski (Animal Sciences, UIUC),
+	  Nohra E Mateus-Pinilla (Illinois Natural History Survey, UIUC).
+        </p>
+
+
+	<hgroup>
+	  <h2>White-Tailed Deer in Illinois</h2>
+	  <h3>Disease-Control and Population Dynamics</h3>
+	</hgroup>
+	<p>
+	  (This research is still in progress, but an interim report is available
+	  <a href="http://wwx.inhs.illinois.edu/files/4113/7357/5137/Summer2012.pdf">here</a> 
+	  [p. 4 - 5].)
+	</p>
+	<p>
+	  In northern Illinois, chronic wasting disease was first identified in the white-tailed
+	  deer population in 2002. Chronic wasting disease (CWD) is similar to "Mad Cow" disease,
+	  and if left unchecked, could potentially wipe out the entire herd.  Additionally, while
+	  the chance of transmission to humans is small, there is no cure for the disease, and it
+	  is always fatal. In order to prevent the disease from spreading, the Illinois 
+	  Department of Natural Resources (IDNR) implemented a sharp-shooting program, aimed at 
+	  decreasing the population density in areas where CWD has been known to occur.
+	</p>
+	<p>
+	  In a cooperation with IDNR, PRA principal, Damian Satterthwaite-Phillips has been 
+	  working with a team of researchers in the Department of Animal Science, and the 
+	  Illinois Natural History Survey at the University of Illinois at Urbana-Champaign.  
+	  Because white-tailed deer are both an important part of the local ecosystem, and an 
+	  important source of revenue to the state, we are closely monitoring the effects of the
+	  sharp-shooting program on reproduction and population dynamics.
+	</p>
+	<p>
+	  From all female deer that were culled in the sharp-shooting program, we track
+	  various statistics including the location and date of culling, the age of the deer, 
+	  whether or not the deer was CWD-positive, the number of fetuses present, and length and
+	  mass measurements of all fetuses. We also track the intensity of the 
+	  sharp-shooting in each area each year.  With 8 consecutive years of data, we have been
+	  able to determine correlations between the intensity of the sharp shooting and various 
+	  measures of reproduction, such as fecundity (measured by both the percentage of deers 
+	  that are pregnant, and the average number of fetuses per doe), 
+	  and fetal mass (which in turn is a good predictor of whether the newborn will survive 
+	  its first year), which are indicators of the herd health.  While this research is still
+	  in progress, the findings so far indicate that the sharp shooting is having minimal 
+	  effects on the deer population, suggesting that this is an effective strategy for 
+	  controlling the disease while simultaneously protecting the long-term health of the 
+	  entire herd.  
+	</p>
+
+	<div class="highlight">
+	  <p>
+	    <em>Statistical Highlights</em><br />
+	    <img src="images/fetusDetection.png" class="frame left" width="450px", 
+		 height="428px" />
+	    In Illinois, the female white-tailed deer all become fertile and conceive at 
+	    approximately the same time, so fetal development is also at the same stage for all 
+	    pregnant deer at any given point in time.  Because this research depends on successful
+	    detection of fetuses, we were concerned that detection may be poor in the earliest
+	    stages of pregnancy when the fetuses were still quite small. The graph at the left
+	    plots the percentage of deer found with fetuses as a function of the number of days 
+	    counting from the new year.  To these data we fit the best sigmoid curve, which begins 
+	    to level off at about 30 days into the new year, indicating that prior to that point, 
+	    a considerable portion of fetuses escaped detection.  Hence we did not rely on any data
+	    prior to this cutoff, as it would likely bias our results.
+	  </p>
+	  <p class="clear">
+	    <img src="images/growthCurve.png" class="frame left" width="450px" height="428px" />
+	    One of the metrics we look at as an indicator of both the mother's nutritional health, 
+	    and the likelihood that the newborn fawn will survive, is the mass of the fetus.  
+	    However because fetuses grow, they are, on average, heavier later in gestation.  By 
+	    plotting the fetal lengths against their masses, we fit an exponential function to the 
+	    data that allows us to understand how mass and length relate to each other over time, 
+	    and correct for this variation.
+	  </p>
+	  <p>
+	    In the course of this research, we are also modeling the effects of sharp-shooting
+	    intensity on the percentage of deer in each age class (fawn, yearling, or adult), the
+	    percentage of deer found pregnant, the number of fetuses per pregnancy, and the 
+	    robustness of the fetuses (derived from the mass and length measurements).  Using 
+	    various types of linear models, we control for other covariates, such as the geographic
+	    region (some areas may provide better habitat and nutrition), the year (colder years 
+	    may also be responsible for decreased fertility), the age of the pregnant deer (older
+	    deer typically have larger litters), etc.
+	  </p>
+	  <p class="clear"></p>
+	</div><!--.highlight-->
+	<p class="small">
+	  Other scientists involved in this research: Nohra Mateus-Pinilla (Illinois Natural
+	  History Survey, UIUC), Mary Beth Manjerovic, Michelle L. Green (Illinois Natural 
+	  History Survey and Animal Sciences, UIUC), Jan Novakofski (Animal Sciences, UIUC).
+	</p>
+
+	<h3 class="clear">The Role of Heavy Metals in Chronic Wasting Disease</h3>
+	<p>
+	  (This research is currently under peer-review for publication. A link will be provided
+	  when published.)
+	</p>
+	<p>
+	  Chronic wasting disease (CWD) is a prion disease found in cervid species such as deer 
+	  and elk. CWD is similar to bovine spongiform encephalopathy ("Mad Cow" disease) in 
+	  cattle, scrapie in sheep, and Creutzfeld-Jacob disease and kuru in humans. The disease
+	  is caused by a misfolded protein found in the nervous system.  The misfolded protein is
+	  infectious, and causes other proteins to misfold, ultimately leading to a chain 
+	  reaction of misfoldings that results in the deterioration of the nervous tissue. In 
+	  deer, the disease is thought to be transmissible through saliva, urine, and feces, and
+	  is always fatal.
+	</p>
+	<p>
+	  There are likely many factors that contribute to a deer's susceptibility to CWD, 
+	  including the amounts of different essential nutrients in the diet.  For example, the
+	  protein that may become infectious typically bonds with a copper atom (cofactor), and 
+	  the bonds help the protein to keep its shape.  When there is insufficient copper in the
+	  diet, other metals such as magnesium may replace the copper in the protein.  However, 
+	  the bonds formed with magnesium appear to be weaker and may leave the protein more 
+	  susceptible to misfolding and becoming infectious.
+	</p>
+	<p>
+	  PRA principal, Damian Satterthwaite-Phillips has been providing statistical support to
+	  a group of veterinarians and scientists at the Illinois Natural History Survey (INHS) 
+	  at the University of Illinois at Urbana-Champaign (UIUC). This research is aimed at 
+	  detecting differences in the concentrations of different metals in diseased and healthy
+	  deer, while correcting for other possible sources of variation such as sex, age, and 
+	  variation in the mineral content of the soils in different regions, as well as 
+	  providing baseline measurements of these metals in healthy deer.  These finding will 
+	  aid in the understanding of CWD epidemiology, and may suggest methods for controlling 
+	  CWD, such as providing mineral fortified salt licks in regions where certain nutrients
+	  are poor.
+	</p>
+	<p class="small">
+	  Other scientists involved in this research: Nelda Rivera, Nohra Mateus-Pinilla (INHS, 
+	  Natural Resources and Environmental Sciences, UIUC), Jan Novakofski (Animal Sciences, 
+	  UIUC), Hsin-Yi Weng (Comparative Pathobiology, Purdue University), Amy Kelly (INHS, 
+	  UIUC), Marilyn Ruiz (Pathobiology, UIUC)
+	</p>
+	<div class="spacer"></div>
+
+	<hgroup>
+	  <h1 id="social">Social Sciences</h1>
+	  <h2>Anthropology</h2>
+	  <h3>Women's Labor, Marriage Mobility, and Footbinding in China</h3>
+	</hgroup>
+	<p>
+	  <a href="http://journals.cambridge.org/action/displayAbstract?fromPage=online&aid=8768246&fulltextType=RA&fileId=S0021911812001271">
+	    Link to publication</a>.
+	</p>
+
+	<hgroup>
+	  <h2>Linguistics</h2>
+	  <h3>Language Families</h3>
+	</hgroup>
+	<p>
+	  <a href="http://purl.stanford.edu/wv919xj7158">Link to publication</a>.
+	</p>
+	
+	<div class="spacer"></div>
+
+	<h3>Documenting and Preserving Endangered Languages</h3>
+	<p>
+          <a href="http://purl.stanford.edu/wv919xj7158">Link to publication</a>.
+        </p>
+
+	<div class="spacer"></div>
+
+	<hgroup>
+	  <h1 id="government">Governmental Work</h1>
+	  <h2>Planning</h2>
+	  <h3>
+	    Balancing Economic Development and Subsistence Hunting and Gathering in the Northwest
+	    Arctic Borough
+	  </h3>
+	</hgroup>
+	<p>
+	  <a href="http://nwabor.org/pdfs/MappingLandUseforSubsitenceResourcesinArcticAlaska.pdf">
+	    Link to draft methods paper for publication</a>.<br />
+	  <a href="http://nwabor.org/pdfs/Methods_29Apr2014.pdf">Link to more detailed in-house 
+	    methods document</a>.
+	</p>
+      </div> <!-- #main -->
+    </div> <!-- #nav-main -->
+
+    <footer>
+      <p>
+	&copy; 2014 Phillips Research and Analytics, Inc.
+      </p>
+    </footer>
+
+
+  </div><!-- #container -->
+</body>
+
+
+</html>
