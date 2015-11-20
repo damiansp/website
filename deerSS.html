@@ -1,0 +1,463 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" contents="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>
+    Deer Reproduction and Disease Control | Phillips Research & Analytics
+  </title>
+  
+  <link
+     href="http://fonts.googleapis.com/css?family=Caudex|Ubuntu|Muli|Philosopher|Cinzel|Michroma|Julius+Sans+One|Forum|Gruppo|Marcellus+SC"
+     rel="stylesheet" type="text/css" />
+  <link rel="stylesheet"
+        href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css" />
+  <!-- optional bootstrap theme -->
+  <link rel="stylesheet"
+        href="http://netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap-theme.min.css" />
+  <link rel="stylesheet" href="style/pr.css" />
+  
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js">
+  </script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js">    
+  </script>
+  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.3/angular.min.js">
+  </script>
+  <script src="http://d3js.org/d3.v3.min.js"></script>
+  <!-- <script src="~/d3.v3.js"></script> -->
+</head>
+
+
+
+<body>
+  <div class="navbar navbar-inverse top-fix orange-bottom">
+    <div class="container-fluid">      
+      <div class="row">
+	<div class="col-md-12">
+	  <div id="brand-bar">
+	    <!--<img src="images/logo/logoOrange.png" id="logo" />-->
+	    <h1 id="biz-name">
+	      Damian Satterthwaite-Phillips, PhD</h1>
+	  </div>
+	</div>
+      </div><!-- navbar header, row -->
+      <div class="row orange-top grey-4">
+	<div class="col-md-12">
+	  <ul class="nav navbar-nav">
+	    <li><a href="index.html">Home</a></li>
+            <li class="dropdown">
+	      <a href="#" class="dropdown-toggle" data-toggle="dropdown" 
+		 role="button" aria-haspopup="true" aria-expanded="false">
+		Statistics
+		<span class="caret"></span>
+	      </a>
+	      <ul class="dropdown-menu nav navbar-inverse navbar-nav">
+		<li><a href="statistics.html">Statistics</a></li>
+		<li><a href="machine-learning.html">Machine Learning</a></li>
+	      </ul>
+	    </li><!-- dropdown (Stats) -->
+	    
+            <li><a href="data-visualization.html">Data Visualization</a></li>
+            <li class="dropdown">
+	      <a href="#" class="dropdown-toggle" data-toggle="dropdown"
+		 role="button" aria-haspopup="true" aria-expanded="false">
+		Mapping
+		<span class="caret"></span>
+	      </a>
+	      <ul class="dropdown-menu nav navbar-inverse navbar-nav">
+		<li><a href="web-mapping.html">Web Mapping</a></li>
+		<li><a href="gis.html">GIS</a></li>
+	      </ul>
+	    </li><!-- dropdown (Mapping) -->
+            <li><a href="language.html">Language Tools</a></li>
+            <li><a href="web-dev.html">Web Development</a></li>
+	    <li><a href="academia.html">Academics</a></li>
+            <li><a href="about.html">About</a></li>
+            <li><a href="probono.html">Pro Bono</a></li>
+	    <li><a href="contact.html">Contact</a></li>
+ 	  </ul>
+	</div><!-- col-md-12  -->
+      </div><!-- row -->
+    </div><!-- container-fluid -->
+  </div><!-- navbar -->
+  
+  <div class="container">
+    <div id="main">
+      <h1>
+	Analyzing White-Tailed Deer Reproductive Parameters in Response to
+	Sharpshooting as a Method to Control for Chronic Wasting Disease
+      </h1>
+      <p><em>-Damian Satterthwaite-Phillips</em></p>
+      <p><a href="deerSS2.html">Skip ahead to data analysis</a></p>
+
+      <div class="row">
+	<div class="col-md-6">
+	  <h3>Introduction</h3>
+	  <p>
+	    Culling is a frequently used method for controlling disease in 
+	    wildlife populations. In the case of density-dependent disease, 
+	    culling has a two-fold effect—it reduces contact rates and
+	    therefore disease transmission between hosts (Barlow 1996), and by 
+	    culling infective hosts, the infective contribution of that host is
+	    also diminished.  Modeling tools indicate that culling may also be 
+	    an effective strategy when the disease is frequency dependent
+	    (Potapov et al. 2012).  State agencies rely on hunter harvest to
+	    maintain deer population structures, and mathematical models 
+	    specific to chronic wasting disease (CWD) control emphasize the
+	    importance of population reduction (Gross and Miller 2001, 
+	    Wasserberg et al. 2009).  In Illinois, CWD is managed through a 
+	    combination of hunter harvest and intensive localized sharpshooting
+	    in CWD-infected areas.  
+	  </p>
+	  <p>
+	    Chronic wasting disease in white-tailed deer (<em>Odocoileus
+	      virginianus</em>) was first reported in Illinois just south of
+	    the Wisconsin state line from a suspect deer in November 2002 (IDNR
+	    2003). Statewide surveillance of hunter-harvested deer that year
+	    detected 6 additional cases in northern Illinois.  Subsequent to 
+	    detection of the first CWD case, the Illinois Department of Natural
+	    Resources (IDNR) initiated an annual sharpshooting (SS) program to 
+	    decrease deer densities, remove CWD-infected deer, and manage the 
+	    disease in localized areas of high risk of disease transmission and
+	    where CWD was known to occur (IDNR 2003).  The sharpshooting (SS) 
+	    program in Illinois was non-selective and was intended to:
+	    <ol> 
+	      <li>
+		reduce deer populations to a degree greater than hunting in 
+		sections infected with CWD or at high risk of infection, and 
+	      </li>
+	      <li>
+		introduce a mechanism of disease control in areas with limited 
+		hunting grounds and high human density.
+	      </li>
+	    </ol>
+	  </p>
+	  <p>
+	    Because of the timing of breeding and fawning relative to
+	    conventional hunting seasons, reproduction in white-tailed deer
+	    (WTD) is often evaluated using observational estimates of fawn
+	    numbers (offspring per doe), lactation rates in does, or
+	    examination of ovarian corpora albicantia during harvest (Schwartz
+	    1998).  In contrast, SS took place after the breeding season, while
+	    does were pregnant, allowing us to take measurements on fetuses
+	    directly.  
+	  </p>
+	  <p>
+	    Fecundity in WTD, indicated by pregnancy rates  (number of
+	    pregnant does / total number of does) and fetuses-per-pregnancy is
+	    influenced by a number of factors such as the age of the mother and
+	    habitat quality.  In Ohio, with deer habitat similar to that in
+	    northern Illinois, WTD were estimated to average 2.0 fetuses per
+	    pregnancy (Nixon 1971).  In other regions, fetuses per pregnancy
+	    have been reported to be somewhat lower: 1.5 in Texas (Kie and
+	    White 1985); 1.6 in Iowa (Haugen 1975); 1.6 – 1.7 in South
+	    Carolina (Dapson et al. 1979). The relatively high numbers of
+	    fetuses per pregnancy in Ohio indicate the high-quality habitat for
+	    WTD, a condition similar to that of Illinois. Fawn pregnancy rates
+	    have been reported to range from 2-29% (DeYoung 2011).  In a
+	    captive deer population in Michigan with supplemental food, as many
+	    as half the doe fawns became pregnant (Ozoga 1987).  The Michigan
+	    study further indicates that high doe fawn fecundity and the 
+	    frequency of triplet and quadruplet litters in older does reflect
+	    high-quality habitat and excellent nutrition (Ozoga 1987).  
+	  </p>
+	  <p>
+	    Factors that affect fecundity may also affect fetal development as
+	    indicated by fetal crown-rump length, fetal mass or fetal sex
+	    ratios (Jacobson 1976).  Sex ratios in WTD deer are sensitive to
+	    time of conception during estrus with later conception leading to
+	    higher proportions of males.  Although time of conception may be
+	    density dependent (Verme & Ozoga 1981) Bonenfant et al. (2003) did
+	    not find significant changes in the sex ratio at any density below
+	    carrying capacity.  However, in red deer (<em>Cervus elaphus</em>),
+	    the proportion of males born declined as population density (Kruuk
+	    et al. 1999) and nutritional stress (Mysterud et al. 2000)
+	    increased.
+	  </p>
+	  <p>
+	    Because SS in Illinois has been conducted over 10 years during
+	    pregnancy, it allowed us to measure reproduction based on observed
+	    fetal characteristics directly; over the last 10 years we have
+	    collected data from 5594 fetuses taken from 4748 does.  These
+	    numbers are an order of magnitude larger than frequently cited
+	    papers on deer reproduction which commonly range in the hundreds.
+	    The direct measures of reproduction examined in this study will 
+	    provide information on the response of deer to CWD management 
+	    intervention through very localized population reduction efforts.  
+	    Our objectives were:
+	    <ol>
+	      <li>
+		to provide summary statistics of  reproductive parameters in
+		Illinois WTD
+	      </li>
+	      <li>
+		to examine the impact of the Illinois SS program on
+		reproduction and fetal development in white-tailed deer; and
+	      </li>
+	      <li>to assess whether CWD affected reproductive parameters.</li>
+	    </ol>
+	  </p>
+	  <p>
+	    Because the SS program differs from hunting in that higher rates of
+	    culling occur in smaller, more focused loci, we examined its impact
+	    on reproduction at the same geographic scale.  Illinois provides
+	    high-quality deer habitat and deer densities have been reported to
+	    be below carrying capacity (Roseberry and Woolf 1991, 1998).  
+	    Therefore, we predicted that an increase in SS intensity would not
+	    significantly affect:
+	    <ol>
+	      <li>fecundity</li>
+	      <li>fetal sex ratios</li>
+	      <li>fetal development.</li>
+	    </ol>
+	    To our knowledge, this study represents the largest dataset of does
+	    and fetuses ever available to study reproductive characteristics in
+	    deer.  The magnitude of these data allows for detection of
+	    relatively small changes and with high statistical significance.
+	  </p>
+	</div><!-- col -->
+	<div class="col-md-6">
+	  <h3>Study Area</h3>
+	  <p>
+	    Our study area included portions of northern Illinois, USA, where
+	    SS was conducted for disease control within 13 counties affected by
+	    CWD between 2003 and 2010. The Public Land Survey System divides 
+	    the state of Illinois into a grid of 9.7 km by 9.7 km squares, each
+	    a unique township.  Because of state line boundaries, and 
+	    occasionally other historical divisions, some townships differ in
+	    size, but the vast majority are 94.1 square km (36 sq. miles; US
+	    Dept. of the Interior 2009, 2011).  Each township is further
+	    subdivided into a grid of 1.6 km by 1.6 km squares called sections.
+	    The section was our geographical unit of analysis.  Locations of
+	    all deer culled by sharpshooting were recorded to the appropriate 
+	    township, range, and section according to the Public Land Survey
+	    System (US Dept. of the Interior 2011).
+	  </p>
+	  <p>
+	    Throughout the greater region of northern Illinois, the landscape
+	    has been described as highly fragmented.  The deer habitat
+	    consists of patches of forest, mixed with both agricultural and
+	    urban regions with urban development greatest in the Chicago
+	    metropolitan area (Piccolo et al. 2001).  The fragmented patches of
+	    woodland provide substantial amounts of preferred edge habitat
+	    (Whitehead 1972) found at the forest-field boundaries and along
+	    wooded riparian corridors (Nixon et al. 1991, 2008).  The study 
+	    area is part of the Great Plains region, with minimal topographical
+	    relief, and has temperate continental climate with cold winters
+	    (mean = –3° C in January) and warm summers (mean = 24° C in July; 
+	    Nixon et al. 2008).
+	  </p>
+
+	  <hgroup>
+	    <h3>Methods</h3>
+	    <h5><em>Sharpshooting for CWD control</em>.—</h5> 
+	  </hgroup>
+	  <p>
+	    IDNR conducts a statewide
+	    program for CWD monitoring based on the following sources of
+	    samples: suspect deer, hunter harvest, deer population control
+	    permits, deer reduction permits, deer-vehicle collisions and SS.  
+	    The Illinois Department of Agriculture Animal Disease Laboratories
+	    in Galesburg and Centralia, (IL) used retropharyngeal lymph nodes
+	    and brain tissue (obex) for CWD testing using immunohistochemistry 
+	    (O’Rourke et al. 1998) as the diagnostic test. Chronic wasting
+	    disease control relies on an adaptive management strategy based on
+	    SS to reduce the deer population in infected sections, and
+	    high-risk areas (including at least a 2-section buffer around each
+	    positive section; Shelton and Hulin 2004).  The SS sites are thus
+	    limited to a square with 8-km sides.  Sharpshooting took place from
+	    15 January to 30 March each year, shortly after the completion of
+	    the breeding season, following the identification of CWD-infected
+	    sections from prior surveillance. Biologists from IDNR baited 
+	    sites, and removed all deer that came to the site, without 
+	    intention of selective removal by age or sex.
+	  </p>
+	  <p>
+	    Biologists from IDNR determined sex and age of culled deer.  Age 
+	    was determined by dental morphology and wear (Severinghaus 1949).  
+	    This aging method can overestimate the age of young adults (2 yrs),
+	    and underestimate age in older (≥4 yrs) deer (Hamlin et al. 2000, 
+	    Gee et al. 2002, Meares et al. 2006).  We therefore limited our
+	    classification to fawns (<1 yr), yearlings (1 - 2 yrs) and adults 
+            (≥2 yrs). Biologists from IDNR also collected and submitted fetus
+	    samples from the deer culled by SS to the University of Illinois at
+	    Urbana-Champaign, where we recorded fetal crown-rump length 
+	    (Jacobson 1976), sex, mass and litter size.
+	  </p>
+	    
+	  <h3>Study Design</h3>
+	  <p>
+	    We measured reproductive traits from all does killed by SS in a
+	    given year.  These traits included the percentage of pregnant does,
+	    the number of fetuses per pregnancy, fetal development as measured
+	    by the ratio of crown-rump length to mass, and fetal sex ratios. 
+	    The level of prior SS for each section was quantified by prior
+	    intensity, defined as the mean number of does culled annually from
+	    the section in all prior years.  Intensity is calculated as a
+	    cumulative value over all preceding years excluding the present 
+	    year.  (Because SS occurred after the breeding season, it could not
+	    impact reproductive parameters until subsequent breeding seasons.)
+	    For instance, a prior intensity value of 7 indicates a mean of 7
+	    deer culled per year by SS across all sharpshot years in that
+	    section prior to the current year’s measurements of reproduction.  
+	    That is,<br />
+	  </p>
+	  <p>
+	    Prior intensity<em><sub>t</sub></em>
+	    <ul>
+	      <li>
+		= sum(<em>n<sub>i</sub></em>) / (<em>t</em> - 1); 
+		<em>t</em> > <em>a</em>, and
+              </li>
+              <li>
+		= 0; <em>t</em> = <em>a</em>
+	      </li>
+            </ul>
+          </p>
+            for <em>i</em> = (1, 2, ..., <em>t</em> - 1), where <em>t</em> is
+            the year of the given sample, <em>a</em> is the first year in which
+            the given section was sharpshot, and <em>n<sub>i</sub></em> 
+            represents the number of deer culled in the given section in the 
+            <em>i</em>th year.  The numerator represents the total number of 
+	    deer culled prior to year <em>t</em> (<em>t</em> = the year in
+	    which reproductive measurements were taken), and the denominator is
+	    the total number of elapsed years in that period since SS was
+	    initiated.  When <em>t</em> = <em>a</em>, this represents the first
+	    year that SS occurred in the section; because there was no prior 
+	    SS, prior intensity = 0.  Each data point represents the prior
+	    intensity per section per year.  Because SS was a sustained as well
+	    as an adaptive CWD control and management strategy, different
+	    sections received different numbers of SS years so, for a given
+	    section, prior intensity may have changed over time as additional
+	    SS occurred.  Prior intensity values ranged among sections from 0
+	    to 46 females culled per year.
+         </p>
+       </div><!-- col -->
+      </div><!-- row -->
+      <div class="row text-center">
+	<a href="deerSS2.html">Go on to analyses</a>
+      </div><!-- row -->
+      <div class="row">
+	<br />
+	<h3>References</h3>
+	<ul class="small">
+	  <li>Barlow, N. D., 1996.  The ecology of wildlife disease control:
+	    simple models revisited. Journal of Applied ecology 33:303-314.
+	  </li>
+	  <li>Bonenfant, C., J.-M. Gaillard, A. Loison, and F. Klein. 2003.
+	    Sex-ratio variation and reproductive costs in relation to density
+	    in a forest-dwelling population of red deer (<em>Cervus 
+	      elaphus</em>). Behavioral Ecology 14:862-869.</li>
+	  <li>Dapson, R. W., P. R. Ramsey, M. H. Smith, and D.F. Urbston. 1979.
+	    Demographic differences in contiguous populations of white-tailed
+	    deer. Journal of Wildlife Management 43:889-898.</li>
+	  <li>DeYoung, C. A. 2011. Population dynamics.  Pages 147-180 in D.G.
+	    Hewitt, editor. Biology and management of white-tailed deer. CRC
+	    Press, Boca Raton, USA.</li>
+	  <li>Gee, K. L., J. H. Holman, M. K. Causey, A. N. Rossi, and J. B.
+	    Armstrong. 2002. Aging white-tailed deer by tooth replacement and
+	    wear: a critical evaluation of a time-honored technique.  Wildlife
+	    Society Bulletin 30: 387-393.</li>
+	  <li>Gross, J. E., and M. W. Miller. 2001. Chronic wasting disease in
+	    mule deer: disease dynamics and control. Journal of Wildlife
+	    Management 65:205-215.</li>
+	  <li>Hamlin, K. L., D. F. Pac, C. A. Sime, R. M. DeSimone, and G. L.
+	    Dusek. 2000. Evaluating the accuracy of ages obtained by two
+	    methods for Montana ungulates. Journal of Wildlife Management
+	    64:441-449.</li>
+	  <li>Haugen, A. O. 1975. Reproductive performance of white-tailed deer
+	    in Iowa. Journal of Mammalogy, 56:151-159.</li>
+	  <li>Illinois Department of Natural Resources. 2003. Chronic wasting
+	    disease surveillance summary: status of CWD in Illinois. Forest
+	    Wildlife Program; Illinois Department of  Natural Resources. 
+	    <a href="http://dnr.state.il.us/cwd/Sampling_Summary_2003.pdf">
+	      Link</a>. Accessed 20 Apr 2011.</li>
+	  <li>Jacobson, K. A. T. 1976. Morphological development of external
+	    characteristics of the fetal key deer (<em>Odocoileus virginianus
+	      clavium</em>). Thesis, Southern Illinois University. Carbondale,
+	    USA.</li>
+	  <li>Kie, J. G., and M. White. 1985. Population dynamics of
+	    white-tailed deer (<em>Odocoileus virginianus</em>) on the Welder
+	    Wildlife Refuge, Texas. The Southwestern Naturalist 30:105-118.
+	  </li>
+	  <li>Kruuk, L. E. B., T. H. Clutton-Brock, S. D. Albon, J. M.
+	    Pemberton, and F. E. Guinness. 1999. Population density affects sex
+	    ratio variation in red deer. Nature 399:459-461.</li>
+	  <li>Meares, J. M., B. P. Murphy, C. R. Ruth, D. A. Osborn, R. J.
+	    Warren, and K.V. Miller. 2006. A quantitative evaluation of the
+	    Severinghaus technique for estimating age of white-tailed deer.
+	    Proceedings of the Annual Conference of the Southeastern
+	    Association of Fish and Wildlife Agencies 60:89-93.</li>
+	  <li>Mysterud, A., N. G. Yoccoz, N. C. Stenseth, and R. Langvatn.
+	    2000. Relationships between sex ratio, climate and density in red
+	    deer: the importance of spatial scale. Journal of Animal Ecology
+	    69:959-974.</li>
+	  <li>Nixon, C. M. 1971. Productivity of white-tailed deer in Ohio. The
+	    Ohio Journal of Science 4:217-225.</li>
+	  <li>Nixon, C. M., L. P. Hansen, P. A. Brewer, and J. A. Chelsvig.
+	    1991. Ecology of white-tailed deer in an intensively farmed region
+	    of Illinois. Wildlife Monographs 118:3-77.</li>
+	  <li>Nixon C. M., P. C. Mankin, D. R. Etter, L. P. Hansen, P.A. 
+	    Brewer, J. E. Chelsvig, T. L Esker, and J. B. Sullivan. 2008. 
+	    Migration Behavior among Female White-Tailed Deer in Central and
+	    Northern Illinois. The American Midland Naturalist, 160:178-190.
+	  </li>
+	  <li>O’Rourke, K.I, T. V. Baszler, J. M. Miller, T. R. Spraker, I.
+	    Sadler-Riggleman, and D. P. Knowles. 1998. Monoclonal antibody
+	    F89/160.1.5 defines a conserved epitope on the ruminant prion
+	    protein. Journal of Clinical Microbiology 36:1750-1755.</li>
+	  <li>Ozoga, J. J. 1987. Maximum fecundity in supplementally-fed
+	    northern Michigan white-tailed deer. Journal of Mammalogy
+	    68:878-879.</li>
+	  <li>Piccolo B. P., K. M. Hollis, R. E. Warner, T. R. Van Deelen, D.
+	    R. Ettern, and C. Anchor. 2001. Variation of white-tailed deer home
+	    ranges in fragmented urban habitats around Chicago, Illinois.
+	    Proceedings of the Eastern Wildlife Damage Management Conference,
+	    9:351-356.</li>
+	  <li>Potapov, A, E. Merrill, and M. A. Lewis. 2012. Wildlife disease
+	    elimination and density dependence.  Oxford Center for
+	    Collaborative Applied Mathematics 12/14.</li>
+	  <li>Roseberry, J. L., and A. Woolf.1991. A comparative evaluation of
+	    techniques for analyzing white-tailed deer harvest data. Wildlife
+	    Monographs 117:3-59.</li>
+	  <li>Schwartz, T. 1998. Factors affecting white-tailed deer harvest
+	    fawn:doe ratios in Illinois.  Thesis, Southern Illinois University.
+	    Carbondale, USA.</li>
+	  <li>Severinghaus, C. W. 1949. Tooth development and wear as criteria
+	    of age in white-tailed deer. The Journal of Wildlife Management
+	    13:195-216.</li>
+	  <li>Shelton, P., and A. Hulin. 2004. Illinois chronic wasting
+	    disease: 2003-2004 surveillance/ management summary. Illinois
+	    Department of Natural Resources, Forest Wildlife Program. 
+	    Springfield, IL, USA.</li>
+	  <li>United States Department of the Interior; Bureau of Land
+	    Management. 2009. Cadastral History. 
+	    <a href="http://www.blm.gov/wo/st/en/prog/more/cadastralsurvey/cadastral_history.html">Link</a>.
+	    Accessed 16 May 2011.</li>
+	  <li>United States Department of the Interior; National Atlas of the
+	    United States. 2011. The Public Land Survey System (PLSS). 
+	    <a href="http://www.nationalatlas.gov/articles/boundaries/a_plss.html">Link</a>. 
+	    Accessed 16 May 2011.</li>
+	  <li>Verme, L. J., and J. J. Ozoga. 1981. Sex ratio of white-tailed
+	    deer and the estrus cycle. The Journal of Wildlife Management
+	    45:710-715.</li>
+	  <li>Whitehead G. K. 1972, Deer of the world. Constable, London, UK.
+	  </li>
+	</ul>
+      </div><!-- row -->
+    </div> <!-- #main -->
+  </div> <!-- .container -->
+
+
+  <div class="container-fluid orange-top gradient">
+    <footer>
+      <p>
+	&copy; 2015 Damian Satterthwaite-Phillips
+      </p>
+    </footer>
+  </div>
+</body>
+
+
+</html>
