@@ -215,7 +215,8 @@ hr {
         <div class="col-md-12">
           <div id="brand-bar">
             <!--<img src="images/logo/logoOrange.png" id="logo" />-->
-            <h1 id="biz-name">Damian Satterthwaite-Phillips, PhD</h1>
+            <h1 id="biz-name">                                                  
+              Damian Satterthwaite-Phillips, PhD</h1>
           </div>
         </div>
       </div><!-- navbar header, row -->
