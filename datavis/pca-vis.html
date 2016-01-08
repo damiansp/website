@@ -14,7 +14,7 @@
   <!-- optional bootstrap theme -->
   <link rel="stylesheet"
         href="http://netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap-theme.min.css" />
-  <link rel="stylesheet" href="http://phillips-research.com/style/pr.css" />
+  <link rel="stylesheet" href="../style/pr.css" />
   
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js">
   </script>
@@ -23,7 +23,6 @@
   <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.3/angular.min.js">
   </script>
   <script src="http://d3js.org/d3.v3.min.js"></script>
-  <!-- <script src="~/d3.v3.js"></script> -->
 </head>
 
 
@@ -117,6 +116,103 @@
   
   <div class="container">
     <div id="main">
+
+      <h3>Principal Components Analysis Visualization</h3>
+      <div class="row bottom-border">
+        <div class="col-md-4">
+          <p>
+            This graphic shows the results of a principal components analysis
+            (PCA) on 60 fatty acids from fat samples from each of 228 animals,
+            including river otters, and a number of their prey species
+            including different fish, crayfish, amphibians, and molluscs.
+          </p>
+          <p>
+            As the output demonstates, different taxonomic groups show distinct
+            fatty acid profile "signatures", forming distinct clusters in the
+            PCA plot.
+          </p>
+        </div><!-- col -->
+        <div class="col-md-4">
+          <p>
+            In the section on
+            <a href="http://phillips-research.com/ml/PCA.html">
+              using PCA to determine species from fat samples
+            </a>, I mention that one of the difficulties lies in visualization
+            of high-dimensional data.  While a lot of the information can be
+            consdensed and displayed visually using just the first two or three
+            principal components (PCs), often higher PCs will also contain
+            information of interest to the researcher.  Here I have taken the
+            PCA scores output in the R script, and used them as input for this
+            interactive visualization that allows the user to
+          </p>
+        </div><!-- col -->
+        <div class="col-md-4">
+          <p>
+            display the data projected onto any of the top 10 PCs in the data
+            set.
+          </p>
+          <p>
+            For simplicity, I have omiited PCs above 10, and color-coded the
+            points according to these taxonomic divisions: mollusc, crayfish,
+            fish, frog, otter (tail fat and footpad fat displayed in diffferent
+            colors--see the PCA link above for details).
+          </p>
+        </div><!-- col -->
+      </div><!--row-->
+      <div class="dropdown">
+        <form class="text-center">
+          <label for="x-axis">x-axis:</label>
+          <select id="x" name="x-axis">
+            <option value="pc1">PC 1</option>
+            <option value="pc2">PC 2</option>
+            <option value="pc3">PC 3</option>
+            <option value="pc4">PC 4</option>
+            <option value="pc5">PC 5</option>
+            <option value="pc6">PC 6</option>
+            <option value="pc7">PC 7</option>
+            <option value="pc8">PC 8</option>
+            <option value="pc9">PC 9</option>
+            <option value="pc10">PC 10</option>
+          </select>
+          <label for="y-axis">y-axis:</label>
+          <select id="y" name="y-axis">
+            <option value="pc1">PC 1</option>
+            <option value="pc2">PC 2</option>
+            <option value="pc3">PC 3</option>
+            <option value="pc4">PC 4</option>
+            <option value="pc5">PC 5</option>
+            <option value="pc6">PC 6</option>
+            <option value="pc7">PC 7</option>
+            <option value="pc8">PC 8</option>
+            <option value="pc9">PC 9</option>
+            <option value="pc10">PC 10</option>
+          </select>
+          <button id="update" class="btn btn-primary">Update Graph</button>
+        </form>
+        <p id="key" class="text-center">
+          <strong>Key:</strong>
+          <svg class="key-symbol">
+            <circle cx="11" cy="11" r="10" fill="#FF8888" stroke="black"/>
+          </svg>Mollusc
+          <svg class="key-symbol">
+            <circle cx="11" cy="11" r="10" fill="#FF0000" stroke="black"/>
+          </svg>Crayfish
+          <svg class="key-symbol">
+            <circle cx="11" cy="11" r="10" fill="#0000FF" stroke="black"/>
+          </svg>Fish
+          <svg class="key-symbol">
+            <circle cx="11" cy="11" r="10" fill="#00FF00" stroke="black"/>
+          </svg>Frog
+          <svg class="key-symbol">
+            <circle cx="11" cy="11" r="10" fill="#000000" stroke="#AAAAAA"/>
+          </svg>Otter (footpad)
+          <svg class="key-symbol">
+            <circle cx="11" cy="11" r="10" fill="#AA2288" stroke="black"/>
+          </svg>Otter(tail)
+        </p>
+      </div><!-- dropdown -->
+      <!-- SVG will go here -->
+
     </div> <!-- #main -->
   </div> <!-- .container -->
   
@@ -148,6 +244,7 @@
       </p>
     </footer>
   </div>
+  <script src="js/pca.js"></script>
   <script>
     (function(i,s,o,g,r,a,m){
     i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){

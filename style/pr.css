@@ -129,6 +129,25 @@ footer {
 
 /** Specific pages */
 
+/** data-visualization */
+.vis {
+
+}
+
+.btn-image {
+   border: solid thin black;
+   background: #444;
+}
+
+
+/** pca-vis */
+.bottom-border {
+    border-bottom: thin solid black;
+    margin-bottom: 25px; 
+}
+
+
+
 /** Statistics */
 .img-button {
    border-radius: 15px;
@@ -139,12 +158,18 @@ footer {
    padding-top: 1em;
 }
 
-/** data-visualization */
-.vis {
 
+/** For SVG */
+svg {
+    margin-top: 15px;
 }
 
-.btn-image {
-   border: solid thin black;
-   background: #444;
+svg.key-symbol {
+    margin: 10px 5px 0 10px;
+    height: 22px;
+    width: 22px;
+}
+
+.full-width {
+    border: thin solid black;
 }

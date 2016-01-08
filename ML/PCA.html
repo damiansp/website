@@ -369,7 +369,10 @@ legend(&#39;topleft&#39;, pch = 16, col = 1:5, legend = levels(fat$Taxon))
 
 <p>Amazing!  Using just two new variables, the first two PCs, we can already see the different species forming distinct groups, though there is some overlap in the clusters.  Adding the 3rd PC, the overlap that occured in frogs, crayfish and otters mostly disappears.</p>
 
-<p>Depending on your leaning, you may find a 3-dimensional plot useful, as well, though, without be able to rotate the plot 2 dimensional representations of 3 dimensional data can sometimes be difficult to discern.  Nevertheless, I will attempt a few examples (and maybe even get a rotatable model up here one day).</p>
+<p>Depending on your leaning, you may find a 3-dimensional plot useful, as well, though, without be able to rotate the plot 2 dimensional representations of 3 dimensional data can sometimes be difficult to discern.  Nevertheless, I will attempt a few examples.
+  (<a href="http://phillips-research.com/datavis/pca-vis.html" target="_blank">
+    Go to interactive plot
+  </a>.)
 
 <pre><code class="r">scatter3D(allPCA$scores[, 1], allPCA$scores[, 2], allPCA$scores[, 3], 
           pch = as.numeric(fat$Taxon), xlab = &#39;PC 1&#39;, ylab = &#39;PC 2&#39;, zlab = &#39;PC 3&#39;)
