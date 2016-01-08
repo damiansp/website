@@ -124,3 +124,27 @@ footer {
    background: -moz-linear-gradient(bottom right, #000000, #444);
    background: linear-gradient(to bottom right, #000000, #444);
 }
+
+
+
+/** Specific pages */
+
+/** Statistics */
+.img-button {
+   border-radius: 15px;
+   padding: 10px;
+}
+
+.pad-top {
+   padding-top: 1em;
+}
+
+/** data-visualization */
+.vis {
+
+}
+
+.btn-image {
+   border: solid thin black;
+   background: #444;
+}

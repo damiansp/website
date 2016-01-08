@@ -1,0 +1,146 @@
+Using Fatty Acid Profiles to Determine Species
+==============================================
+## An Example Using Principal Components Analysis (PCA)
+
+### Introduction
+In the <a href="http://phillips-research.com/ml/kmeans.html">section on k-means clustering</a>, I provided an example of how k-means could be used to identify like fatty acids from an arbitrary number of output samples from a gas-liquid chromatograph.  In this study, I use those data as the input to a principal components analysis in order to determine if fatty acid profiles alone are sufficient to determine distinct species.  
+
+I used this method as part of a larger study to determine predator diets from their fatty acid profiles, given known fatty acid profiles of their candidate prey species.  You can easily imagine how such studies might also be useful in forensics for example, if a scrap of flesh were found, and police needed to determine if it is human.  
+
+The input data for this analysis is the percentage of each of 60 fatty acids (by mass) in each of 228 samples, coming from river otters (the predator), and from several fish, crayfish, mollusc (clam and mussel), and frog species.
+
+I will not go into detail about how PCA works, but in brief, it takes the 60 initial variables (the percentage of each fat), and projects them onto a set of orthogonal axes rotated in the original 60-dimensional cloud of data points in such a way as to minimize the amount of variance around each of the new axes.  The first such axis--the first principal component--is such that it minimizes the total distance to all points in the dataset.  The second, is orthogonal to the first and such that it minimizes the total remaining variance, given the first, and so forth.  In this manner a large set of variables can be compressed into a smaller set of variables while simultaneously minimizing the amount of information lost.  One benefit of this procedure, as we will see here, is that a high dimensional data set can be projected onto a lower set of principal components, so that the relationship between data points may be visualized.  Below I project the 60-variable dataset onto two- and three-dimensional graphs.
+
+A second benefit of PCA is that the original variables may be replaced by the new variables projected onto the PCs.  By discarding PCs with low explanatory power, a great deal of the variablity can be kept, while using fewer variables, which essentially gives more degrees of freedom in exchange for minimal information loss, though this may come at the expense of being able to explain the model easily in lay terms.
+
+### The R Code
+Running PCA in R is exceedingly simple. There are a number of packages, such as the FactoMineR package that have a good deal of functionality, but the princomp() function in the R base package is also very useful for day-to-day purposes.
+
+```{r init}
+rm(list = ls())
+library(plot3D)
+
+# Read in the data
+fat = read.csv('~/Desktop/PRA/WebsiteRoot/ML/FA60Transpose.csv', row.names = 1)
+
+# Glimpse data structure
+fat[1:10, 1:10]
+FA_COLS = 3:dim(fat)[2]
+```
+Each of the rows in the data is a unique sample.  The species column utilizes a three-letter code to identify each species. River otters are identified as either "of" if the sample came from the footpad, or "ot" if the sample came from the base of the tail.  (This will be explained below.) There are 28 species in all.  These are grouped into larger taxonomic groups in the "Taxon" column, which has only 5 levels: crayfish, fish, frog, mollusc, and otter. 
+
+The remaining columns are all the fatty acids. Ones with known identity are labeled ("10_0", "12_0", "13_0", etc.), and ones of unknown identity are simply given a number (2, 3, ...). (An inital X appears before each as R will not allow object names to begin with numbers.)
+
+The numbers for the FA columns were assigned to the FA_COLS variable, so that they may be manipulated as a group.
+
+```{r pca_all}
+# Run PCA:
+allPCA = princomp(fat[, FA_COLS], cor = T, center = T)
+
+# Plot amount of total variance explained by each component
+plot(allPCA, type = 'l')
+allPCA$scores[1:5, 1:5]
+```
+In the princomp() call, I have added cor = T, and center = T.  The cor argument (called "scale" in most other PCA libraries) scales the data to Z-scores (standard deviates from the group mean).  In this case, it is not really necessary, as all variables are already on the same scale since each is a proportion (on [0, 1]).  In other cases, however, if variables are on radically different scales, those variables with large values will have a disproportionate influence on the PCA, so it is generally good practice to scale the data.
+
+The plot shows how much of the total variance in the data is explained by each of the principal components.
+
+The scores show the position of each original record on the new rotates set of axes, which we can now use to plot the data.
+
+```{r color_and_plot}
+# Create a set of transparent colors to correspond to the "Taxon" levels.
+# Save data for further use
+# write.csv(pcaScores, '~/Desktop/PRA/WebsiteRoot/ML/pcaScores.csv')
+
+plot(allPCA$scores[, 1], allPCA$scores[, 2], col = fat$Taxon, pch = 16,
+	 xlab = 'PC 1', ylab = 'PC 2', main = 'All Data')
+abline(h = 0, lty = 4); abline(v = 0, lty = 4)
+legend('bottomleft', pch = 16, col = 1:5, legend = levels(fat$Taxon))
+
+plot(allPCA$scores[, 1], allPCA$scores[, 3], col = fat$Taxon, pch = 16,
+	 xlab = 'PC 1', ylab = 'PC 3', main = 'All Data')
+abline(h = 0, lty = 4); abline(v = 0, lty = 4)
+legend('topleft', pch = 16, col = 1:5, legend = levels(fat$Taxon))
+```
+
+Amazing!  Using just two new variables, the first two PCs, we can already see the different species forming distinct groups, though there is some overlap in the clusters.  Adding the 3rd PC, the overlap that occured in frogs, crayfish and otters mostly disappears.
+
+Depending on your leaning, you may find a 3-dimensional plot useful, as well, though, without be able to rotate the plot 2 dimensional representations of 3 dimensional data can sometimes be difficult to discern.  Nevertheless, I will attempt a few examples (and maybe even get a rotatable model up here one day).
+
+```{r 3d}
+scatter3D(allPCA$scores[, 1], allPCA$scores[, 2], allPCA$scores[, 3], 
+	      pch = as.numeric(fat$Taxon), xlab = 'PC 1', ylab = 'PC 2', zlab = 'PC 3')
+legend('bottomleft', pch = 1:5, legend = levels(fat$Taxon))
+
+# Try a "pseudo-3D" approach, using size to represent distance along a 3rd axis, as
+# if representing points nearer and farther from the viewer
+alpha = 0.6
+tr.colors = c(rgb(0, 0, 0, alpha), rgb(1, 0, 0, alpha), rgb(0, 1, 0, alpha),
+			  rgb(0, 0, 1, alpha), rgb(0, 1, 1, alpha))
+tr.colors = tr.colors[as.numeric(fat$Taxon)]
+pcaScores = as.data.frame(allPCA$scores)
+
+
+pc3 = as.vector(allPCA$scores[, 3])
+# rescale
+pc3 = pc3 + min(pc3)
+pc3 = pc3 / max(pc3)
+
+plot(allPCA$scores[, 1], allPCA$scores[, 2], col = tr.colors, pch = 16,
+	 xlab = 'PC 1', ylab = 'PC 2', cex = pc3 / 8)
+abline(h = 0, lty = 4); abline(v = 0, lty = 4)
+legend('bottomleft', pch = 16, col = 1:5, legend = levels(fat$Taxon), bg = 'white')
+```
+
+The above graphics are not ideal, but can help give some insight into the structure of the data.  In the first graph, it is difficult to pinpoint exactly where each point lies in three-dimensions.  In the second, I tried using size to represent the 3rd dimension, so that larger points appear closer to the viewer.  It makes it somewhat more apparent than the simple 2D graph that crayfish, molluscs, and frogs lie at different depths.
+
+In the paper linked above, my co-authors and I go on to describe how an analysis of variance (ANOVA) may be used on the projected data to see if the separation of the groups is significant.  I will not elaborate on that here, but we found that with very few PCs (typically < 5), near all taxonomic levels were significantly different.
+
+## Some other interesting points on the power of fatty acids, and PCA
+I mentioned above that our otter samples contained both fat samples from footpads and from the base of the tail.  We were curious about the possibility that they might differ for physiological reasons.  If you have ever taken fish oil, you may know that it is rich in omega-3 (and omega-6) fatty acids.  These are known as unsaturated fatty acids (FA), and are defined by the presence of one or more double bonds between the carbon chain backbone of the molecule.  This in turn gives the molecule a higher freezing/melting point than the similar molecule without such a double bond.  In fish that frequent arctic waters, the presence of higher amounts of unsaturated FAs allows their cells and tissues to continue to function regularly without freezing.  Illinois river otters are active throughout the winter, also spending much of their time in the water.  We hypothesized that the extremeties, being more prone to heat loss, and also in contact with the cold ground, like arctic fish might differ from other regions of the body, showing higher proportions of unsaturated FAs.
+
+Below is a PCA on just our otter samples.
+
+
+```{r otter_pca}
+otter = fat[c(163:228), ]
+
+otterPCA = princomp(otter[, FA_COLS])
+# plot(otterPCA, type = 'l')
+
+plot(otterPCA$scores[, 1], otterPCA$scores[, 2], pch = 16, 		
+	 col = as.numeric(otter$Species) + 1, xlab = 'PC 1', ylab = 'PC 2', 
+	 main = 'Otters Only')
+abline(h = 0, lty = 4); abline(v = 0, lty = 4)
+legend('topleft', pch = 16, col = unique(as.numeric(otter$Species) + 1), 
+	   legend = c('tail', 'footpad'))
+
+# To obtain loadings (see below):
+# loadings(otterPCA)
+```
+
+As we suspected, the two locations did indeed have distinct, identifiable FA profiles.  We can look at the loadings of the PCA, which tell us how much each of the original variables contributes to each of the PCs.  The two biggest contibutors to the first PC are FAs 16_1 (postively and strongly correlated: 0.96), and 18_0 (consdirably weaker negative correlation: -0.13); the second PC is dominated by 18_1 (-0.79) and 16_0 (0.54), followed by 18_2 (-0.21), and 14_0 (0.11).
+
+All of these support are hypothesis that the footpads may be cold-adapted.  The FAs ending in _0 are the saturated fats, correlating with the position of the purple tail points, and the ones ending in _1 or _2 are unsaturated (or polyunsaturated--having more than 1 C=C bond) FAs, and correlate with the position of the footpad points, just as we would expect.  
+
+(As an aside, the PCA may also alert us to potential outliers like the one lone footpad point in the upper-left.  There are several places where problems may arise in the lab work we did for this study.  Fatty acids will oxidize with time, and contaminants may be introduced to the sample, for example.)
+
+In other words PC 1 can be thought of as (mostly) distinguishing between high amounts of higher amounts of 16_1 at the right extreme, and lower 18_0 at the left extreme, and vice versa for 18_0.  Similarly PC 2 is high in 14_0 near the top, and high in 18_2 near the bottom.
+
+Next, I remove the footpad samples and run our original PCA of all samples again.  (For all the prey species, fat samples were derived from a homogeonate of the full body... meaning we blended them up.  Let me tell you, nothing smells worse than raw frappéd mussels!)
+
+```{r no_footpad}
+footpads = which(fat$Species == 'of')
+noFoot = fat[-footpads, ]
+allPCA2 = princomp(noFoot[, FA_COLS])
+
+plot(allPCA2$scores[, 1], allPCA2$scores[, 2], pch = 16, 		
+	 col = noFoot$Taxon, xlab = 'PC 1', ylab = 'PC 2', 
+	 main = 'All Species (Footpad Data Excluded)')
+abline(h = 0, lty = 4); abline(v = 0, lty = 4)
+legend('topleft', pch = 16, col = 1:5, legend = levels(fat$Taxon))
+```
+
+Here we get even better separation than before. (Note that the PCs in this set do not have the same makeup as those in the original example, so values of points along PCs cannot be directly compared.)
+
+It is pretty amazing that with just a fat sample, we can determine with high confidence, not only the species, but even the region of the body.  Other studies have shown that FAs can even be used to show where animals are foraging, and age of the animals.

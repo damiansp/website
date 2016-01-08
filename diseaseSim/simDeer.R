@@ -1,10 +1,3 @@
-Disease Simulator
-=================
-
-# Introduction
-This code was designed to do simulations of disease spread within an animal population, allowing the user to input a wide variety of parameters governing the population and disease in question.  I originally developed this code to study the affects of chronic wasting disease in white-tailed deer in Illinois, so many of the parameter values provided below are similar to those of that population (though some parameters I just had to guess at and see if they matched empirical data).  However, the code was intentionally designed to be generalizable to a wide variety of cases.
-
-```{r setup}
 #===================================================================#
 #																	#
 #	Disease Simulator												#
@@ -24,13 +17,10 @@ library(MASS)
 
 # Code is pseudo-random, to repeat these outputs exactly:
 set.seed(39)
-```
 
 
 # Step 1. Set Constant Parameters
-The first thing we do is to set the values for the many different population and disease parameters.
 
-```{r set_params}
 # Dimensions to map
 # Grid will be broken down into squares of MAP_UNIT x MAP_UNIT km for
 # tracking soil infectiousness; resolution for heatmaps
@@ -182,12 +172,8 @@ rownames(colorMatrix) = c('M', 'F')
 colnames(colorMatrix) = c('Ad', 'Adol', 'Yng','neo')
 # The matrix is just to access colors more easily in functions below
 colorMatrix
-```
 
 # Step 2. Populate the Map
-Once the parameters have been input, the following code will created a data.frame of animals with the specified characteristics, and randomly initialized (x, y) coordinates
-
-```{r populate}
 #===========================================================================#
 #																			#
 # This function creates the data.frame for animal agents, and populates a 	#
@@ -291,10 +277,7 @@ populate = function(mapX, mapY, density = DENSITY, MYng = M_YOUNG,
 Animal.df = populate(mapX = c(45, 55), mapY = c(45, 55))
 head(Animal.df)
 attach(Animal.df)
-```
-Next, we set up some plotting functions to be able to visualize the data.
 
-```{r plotting_functions}
 # Plot Animal Distribution
 # Helper functions
 
@@ -416,18 +399,12 @@ animalPlot(xWinter, yWinter, xlim = range(xWinter), ylim = range(yWinter),
 		   main = paste('Initial Distribution', 
 		   				'Winter, Prior to Dispersal or Migration', 
 		   				sep = '\n'))
-```
-Notice that animals are appropriately color-coded, diseased animals are marked, and many young share coordinates with their mothers as intended.
 
-#	Step 3: Disperse & Migrate
-## Better determine dispersal parameters from known data.
-Many animals disperse and/or migrate at set times.  Dispersing refers for the tendency of animals to relocate to an area other than the one in which they were born--typically a single lifetime event.  Migration typically refers to regular annual or seasonal movements.
-
-```{r disperse_estimates}
 # Determine Dispersal Data
 deerDist = read.csv('~/Desktop/PRA/WebsiteRoot/diseaseSim/DeerDistance.csv')
 head(deerDist)
-# Here I use dispersal distances of Illinois deer based on the deerDist data set.
+# Here I use dispersal distances of Illinois deer based on the deerDist data 
+# set.
 # For more details:
 truehist(deerDist$distance, xlab = 'Dispersal distances')
 rug(deerDist$distance)
@@ -453,12 +430,7 @@ truehist(deerDist$distance, xlab = 'Dispersal distances')
 lines(disperseProb, col = 'grey')
 lines(maleDisperseProb, col = 'blue')
 lines(femaleDisperseProb, col = 'red')
-```
-The last plot above shows the distribution for the entire population in grey, and then the distributions have been translated to match the empirical means as specified in the constant parameters above.
 
-
-## Determine post-dispersal coordinates
-```{r disperse}
 #===========================================================================#
 #																			#
 # Function to disperse animals.												#
@@ -693,10 +665,7 @@ animalPlot(xWinter, yWinter, xlim = range(xWinter), ylim = range(yWinter),
 # Plot dispersal or migration vector
 arrows(xWinter, yWinter, xSummer, ySummer, angle = 15, length = 0.15,
 	   col = rgb(0, 0, 0, 0.3))
-```
-Here we see arrows indicating where dispersals/migrations occur.  We can zoom out to see better... (The warnings just indicate either that arrows extend beyond the plotting region, or that arrows of length 0 cannot be plotted.)
 
-```{r zoom_dispersal_migrate_vectors}
 # Zoom out and replot
 animalPlot(xWinter, yWinter, 
 		   main = paste('Initial Distribution', 
@@ -706,10 +675,7 @@ animalPlot(xWinter, yWinter,
 # Plot dispersal or migration vector
 arrows(xWinter, yWinter, xSummer, ySummer, angle = 15, length = 0.15, 
 	   col = rgb(0, 0, 0, 0.3))
-```
-And plot again with the movements completed:
 
-```{r disperse_migrate}
 # Plot post-dispersal/summerMigration coordinates
 animalPlot(xSummer, ySummer, 
 		   main = paste('Initial Distribution', 
@@ -722,14 +688,12 @@ animalPlot(xSummer, ySummer,
 		   				'Winter, Prior to Dispersal or Migration', 
 		   				sep = '\n'),
 		   xlim = range(xWinter), ylim = range(yWinter))
-```
+
+
 
 
 # Step 4: Disease Transmission I
-## Set up home ranges
-In the following section, we randomly generate home ranges for each of the animals according to constant parameters.  Then, for all diseased animals, if their home range overlaps with other animals, they may infect other animals according to probabilities specified in the constant parameters.
 
-```{r homeranges}
 #===========================================================================#
 #																			#
 # Calculate Range Radii														#
@@ -854,13 +818,8 @@ rangePlot = function(x, y) {
 
 # Apply
 rangePlot(xSummer, ySummer)
-```
 
-
-## Infect Soil/Environment
-For some diseases, such as chronic wasting disease, animals may shed infectious material (e.g. prions) into the soil or environment that may persist and infect other animals even after the diseased animal itself has left.  Here I model the total area as a matrix, and track the infectious load at each cell of the matrix, to an arbitrary level of spatial resolution.
-
-```{r soil_matrix}
+# Infect Soil/Environment
 # Determine x, y coordinates of infected animals
 infX = xSummer[diseaseStatus == 'pos']
 infY = ySummer[diseaseStatus == 'pos']
@@ -943,13 +902,7 @@ soilPlot = function(M = soil.M) {
 }
 
 soilPlot()
-```
-The infectious load at the darkest red points is indicated as "Max Load" in the legend.
 
-# Infect Animals
-Now that we have both home ranges, and a way to track infection in the soil, we can add animal-to-animal and soil/environment-to-animal infections.
-
-```{r animal_infect}
 #===========================================================================#
 #																			#
 # Infect other animals: Animal-to-animal									#
@@ -1014,10 +967,8 @@ Animal.df$yearsInfected[
 ] = 0
 attach(Animal.df)
 rm(newPos)
-```
 
-And continue with infection from environmental contaminants.
-```{r soil_infect}
+
 #===========================================================================#
 #																			#
 # Infect Soil/environment-to-animal											#
@@ -1084,14 +1035,10 @@ attach(Animal.df)
 animalPlot(xWinter, yWinter, yrsInfected = T, 
 		   main = 'Distribution of Disease after Deer-to-Deer Transmission',
 		   xlim = range(xWinter), ylim = range(yWinter))
-```
 
 
 
 # Step 5: Migrate Back
-Next animals return to pre-migration locations, where another round of animal-to-animal and environment-to-animal infections may occur.
-
-```{r migrate_back}
 #===========================================================================#
 #																			#
 # Migrate to Winter Grounds													#
@@ -1155,11 +1102,8 @@ animalPlot(xSummer, ySummer,
 arrows(xSummer, ySummer, xWinter, yWinter, angle = 15, length = 0.15, 
 	   col = rgb(0, 0, 0, 0.3))
 addLegend()
-```
 
 # Step 6. Disease Infection II
-First update the infectious load in the environment.
-```{r update_soilM}
 # Infect Soil
 infX = xWinter[diseaseStatus == 'pos']
 infY = yWinter[diseaseStatus == 'pos']
@@ -1168,10 +1112,6 @@ rm(infX, infY)
 
 # Plot
 soilPlot()
-```
-
-Next perform animal-to-animal infections.
-```{r animal_infect2}
 # Infect other deer
 # Animal-to-animal
 newPos = animalInfect(disease.status = diseaseStatus, x = xWinter, 
@@ -1183,10 +1123,7 @@ Animal.df$yearsInfected[
 ] = 0
 attach(Animal.df)
 rm(newPos)
-```
 
-And new environment-to-animal infections.
-```{r soil_infect2}
 # Soil-to-animal
 soilInfectData = soilInfect(soil.M = soil.M, x = xWinter, y = yWinter, 
 							diseaseStatus = diseaseStatus, 
@@ -1199,12 +1136,11 @@ attach(Animal.df)
 
 # Plot 
 animalPlot(xWinter, yWinter)
-```
+
+
 
 # Step 7: Mortality
-In the next section, animals die off according to sex- and age-specific parameters, as well as according to disease status, and local carrying capacity.
 
-```{r die}
 #===========================================================================#
 #																			#
 # This function takes deer age and sex data and randomly kills off 			#
@@ -1261,12 +1197,7 @@ title('Mortalities')
 
 # Plot new distribution
 animalPlot(xWinter, yWinter, mort = T)
-```
 
-The following section allows for the map to be subdivided into arbitrarily sized
-grid cells, and for populations to be locally capped my density.  (In the code that follows, no additional mortalities occur, as densities are well below the max at all loci.)
-
-```{r local_density_die}
 #===================#
 #					#
 # Plot subdivisions	#
@@ -1364,13 +1295,11 @@ deathPlot()
 detach(Animal.df)
 Animal.df = subset(Animal.df, vital == 'alive')
 attach(Animal.df)
-```
+
 
 
 # Step 8: Reproduction
-The last step that is included in each iteration (~annual cycle) is for new babies to be born.  They are indicated initially with unique new-born plotting characters, but then immediately changed to 'young' at the beginning of the following iteration.
 
-```{r reproduce}
 # Reproduce
 maxID = max(id) # will need to continue adding new IDs at maxID + 1
 
@@ -1518,15 +1447,10 @@ attach(Animal.df)
 
 # PLOT
 animalPlot(xWinter, yWinter, births = T, main = 'Births')
-```
-New borns are shown in small yellow and green points, and should all share coordinates with their mothers.
 
 
 
 # Step 9: Time Lapse
-The above code lays out all the steps that will occur each year.  In preparation to start the next iteration the final step is to increment all annual variables--So all animals age and yearsInfected increases.  Also, the infectious load in the environment is decreased.
-
-```{r time_lapse}
 
 #=======================================================================#
 #																		#
@@ -1551,13 +1475,10 @@ attach(Animal.df)
 
 # PLOT
 animalPlot(xWinter, yWinter, main = 'Distribution After Age Incementation')
-```
+
 
 
 # Step 10: Diminish Infectious Content in Soil
-Erode the infectious content in the soil/environment according to the supplied constant, SOIL_RETENTION_RATE.
-
-```{r erode_soil}
 
 #=======================================================================#
 #																		#
@@ -1579,13 +1500,11 @@ soil.M = erode(soil.M)
 
 # Plot
 soilPlot()
-```
+
+
 
 
 # Step 11: Initialize Data Tables
-One last thing before repeating for multiple iterations.  We will want to be able to track some of the statistics such as total number of animals, proportions in each sex and age class, as well as the proportion of the population that is infected, and the infectious load in the environment.  Here  I set up code to track each of those.
-
-```{r init_tables}
 # Create tables to track: 
 	# Age, Sex Class and Total Deer
 	# Each of the same by proportion
@@ -1614,18 +1533,11 @@ prevalence.df
 soil.M = soilMatrix(MAP_X, MAP_Y, MAP_UNIT, infX = NA, infY = NA)
 soil.M.list = list(soil.M)
 maxLoad = c()
-```
 
 
 
 # Step 12: Iterate
-OK, that's everything!  Now for the fun part--set the number of time steps (ITERATIONS), and let it run.  
-A few additional control parameters are introduced here:
-* PLOT generates all of the same graphics that were output above, but if set to FALSE, no plotting occurs to speed up the process.
-* VERBOSE: if TRUE, will print the progress of the following for loop.
-* MAX_ANIMALS: Under some conditions, the population can explode very rapidly, causing more and more time for each new iteration.  If the number of animals surpasses MAX_ANIMALS the loop will break.  May be supressed by setting to Inf.
 
-```{r iterate}
 ITERATIONS = 500
 PLOT = F
 VERBOSE = F	# If True will output progress of the following for loop
@@ -1903,13 +1815,13 @@ for (iter in 1:ITERATIONS) {
 	detach(Animal.df)
 
 }
-```
-In this particular instance, the for loop breaks just short of halfway through the specified number of ITERATIONS.  This could be due to all animals dying, or the MAX_ANIMALS number being reached.  Next we graphically display the different statistics that we were tracking.
+
+
 
 
 
 # Step 13: Calculate and Output Stats]
-```{r output_stats}
+
 demogDims = dim(demographics.df)
 prevDims = dim(prevalence.df)
 
@@ -1956,24 +1868,11 @@ matplot(0:(prevDims[2] - 1), t(prevalence.df)[, 1], type = 'l', lty = 1,
 # Plot soil maps
 par(mfrow = c(3, 3))
 
-# The for loop below (commented out) can be used to plot the soil matrix 9 
-# years at a time. The code immediately following just shows the first and last 
-# 9 years.
-
-#for(i in 1:length(soil.M.list)) {
-#	soilPlot(soil.M.list[[i]])
-#	if (i %% 9 == 0) { pause() }
-#}
-
-for (i in 1:9) {
+for(i in 1:length(soil.M.list)) {
 	soilPlot(soil.M.list[[i]])
+	if (i %% 9 == 0) { pause() }
 }
 
-nm = length(soil.M.list)
-
-for (i in (nm - 8):nm) {
-	soilPlot(soil.M.list[[i]])	
-}
 
 par(mfrow = c(1, 1))
 
@@ -1994,20 +1893,14 @@ lines((1:length(maxLoad)) / 3, loadScaler * maxLoad, col = rgb(0, 0, 0, 0.4))
 ts = 0:(length(prevalence.df[1, ]) - 1)
 lines(prevScaler * as.numeric(prevalence.df[1, ]) ~ ts, 
 	  col = rgb(1, 0, 0, 0.4))
-```
-In this case, with the parameters chosen, the disease spread and spiked rapidly, with all infected animals quickly dying, and disease prevalence quickly crashing to near zero.  However, persistent infectious content in the soil led to continuous new infections, though none of which led to prevalence rates like those seen initially (in this run).  On the other hand, because the soil load persists and is able to cause new outbreaks, it is possible that another large outbreak could occur.  But because of the random nature of the code, the code would ideally be run with the same set of parameters many times so that confidence intervals can be estimated from the many runs.  
 
-These values are just meant to exemplify.  In practice, the true value of many of the parameters may not be known, so some testing of a variety of values can be performed to see which parameters best match empirical data.
 
-Also, a number of additions could be made to make more complex models.  For example, different areas on the grid could have diffent capacities, different mortalities, or different disease susceptiblities or soil retention values.  More complex modeling of the migrations could be introduced, and so forth.
 
 # Housekeeping
 
-```{r housekeeping}
 # To save the data to the working directory:
-#save.image("simDeer.RData")
+save.image("simDeer.RData")
 
 # Clear the workspace:
 detach(Animal.df)
 rm(list = ls())
-```
