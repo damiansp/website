@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+  <meta http-equiv="X-UA-Compatible" contents="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Minimum Edit Distance | Phillips Research & Analytics</title>
+  
+  <link
+     href="http://fonts.googleapis.com/css?family=Caudex|Ubuntu|Muli|Philosopher|Cinzel|Michroma|Julius+Sans+One|Forum|Gruppo|Marcellus+SC"
+     rel="stylesheet" type="text/css" />
+  <link rel="stylesheet"
+        href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css" />
+  <!-- optional bootstrap theme -->
+  <link rel="stylesheet"
+        href="http://netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap-theme.min.css" />
+  <link rel="stylesheet" href="http://phillips-research.com/style/pr.css" />
+  
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js">
+  </script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js">
+  </script>
+    <script src="minEdDist.js"></script>
+</head>
+
+
+
+<body>
+  <div class="navbar navbar-inverse top-fix orange-bottom">
+    <div class="container-fluid">      
+      <div class="row">
+	      <div class="col-md-12">
+	        <div id="brand-bar">
+	          <!--<img src="images/logo/logoOrange.png" id="logo" />-->
+	          <h1 id="biz-name">Damian Satterthwaite-Phillips, PhD</h1>
+	        </div>
+	      </div>
+      </div><!-- navbar header, row -->
+      <div class="row orange-top grey-4">
+	      <div class="col-md-12">
+	        <ul class="nav navbar-nav">
+	          <li><a href="http://phillips-research.com/">Home</a></li>
+            <li class="dropdown">
+	            <a href="#" class="dropdown-toggle" data-toggle="dropdown" 
+		             role="button" aria-haspopup="true" aria-expanded="false">
+		            Statistics
+		            <span class="caret"></span>
+	            </a>
+	            <ul class="dropdown-menu nav navbar-inverse navbar-nav">
+		            <li>
+                  <a href="http://phillips-research.com/statistics.html">
+                    Statistics
+                  </a>
+                </li>
+		            <li>
+                  <a href="http://phillips-research.com/machine-learning.html">
+                    Machine Learning
+                  </a>
+                </li>
+	            </ul>
+	          </li><!-- dropdown (Stats) -->
+	          
+            <li>
+              <a href="http://phillips-research.com/data-visualization.html">
+                Data Visualization
+              </a>
+            </li>
+            <li class="dropdown">
+	            <a href="#" class="dropdown-toggle" data-toggle="dropdown"
+		             role="button" aria-haspopup="true" aria-expanded="false">
+		            Mapping
+		            <span class="caret"></span>
+	            </a>
+	            <ul class="dropdown-menu nav navbar-inverse navbar-nav">
+		            <li>
+                  <a href="http://phillips-research.com/web-mapping.html">
+                    Web Mapping
+                  </a>
+                </li>
+		            <li>
+                  <a href="http://phillips-research.com/gis.html">GIS</a>
+                </li>
+	            </ul>
+	          </li><!-- dropdown (Mapping) -->
+            <li>
+              <a href="http://phillips-research.com/language.html">
+                Language Tools
+              </a>
+            </li>
+            <li>
+              <a href="http://phillips-research.com/web-dev.html">
+                Web Development
+              </a>
+            </li>
+	          <li>
+              <a href="http://phillips-research.com/academia.html">
+                Academics
+              </a>
+            </li>
+            <li>
+              <a href="http://phillips-research.com/about.html">About</a>
+            </li>
+            <li>
+              <a href="http://phillips-research.com/probono.html">Pro Bono</a>
+            </li>
+	          <li>
+              <a href="http://phillips-research.com/contact.html">Contact</a>
+            </li>
+ 	        </ul>
+	      </div><!-- col-md-12  -->
+      </div><!-- row -->
+    </div><!-- container-fluid -->
+  </div><!-- navbar -->
+  
+  <div class="container">
+    <div id="main">
+      <h1>Minimum Edit Distance</h1>
+      <div class="row">
+        <div class="col-md-6">
+          <p>
+            Minimum edit distance is an algorithm that is used in a number of
+            applications.  In short, it is asking how different are two inputs?
+            How different is string-1 from string-2?  What is the shortest,
+            simplest, or most likely transformation between string-1 and
+            string-2?
+          </p>
+          <p>
+            One case it is used in is automatic spell-checking. For example,
+            if a user types "I lov potat chips" or "I lov totato chips", the
+            spell-checker can identify that "lov", "potat", and "totato" are
+            not in its dictionary.  Maybe "lov" was intended to be "Lev",
+            "lava", "olive" or "love". Perhaps they meant "tomato" chips or
+            "potato" chips.  By computing a difference between the string and
+            candidate options, costs can be assigned to each possibility, to
+            determine which is the most "similar" to the input.
+          </p>
+          <p>
+            In brief, there are 3 types of edits that are allowed to transform
+            between string-1 and string-3: insertions, deletions, or
+            substitutions.  To get from "lov" to "love" we insert an "e".
+          </p>
+        </div><!-- col1 -->
+        <div class="col">
+          <p class="text-center constant-width">
+            lov-<br />
+            ||||<br />
+            love<br />
+            ---i
+          </p>
+          <p>
+            To get from "totato" to "tomato" we substitute an "m" for the
+            second "t".
+          </p>
+          <p class="text-center constant-width">
+            totato<br />
+            ||||||<br />
+            tomato<br />
+            --s---
+          </p>
+          <p>
+            There is then some cost associated with each type of edit.  In
+            the simplest case, the "Levenshtein Distance", insertions and
+            deletions each have a cost of 1, and substitutions have a cost of
+            2 (equivalent to an insertion and a deletion). There is no cost
+            when the sequences match.
+          </p>
+        </div><!-- col2 -->
+      </div><!-- row -->
+      <h3>Try it out</h3>
+      <p>
+        Insert two words in the textboxes below. The alignment and minimum
+        edit distance (cost) will be generated.
+      </p>
+      <div class="row">
+        <div class="col-md-6">
+          <form class="form-horizontal">
+            <div class="form-group">
+              <label for="word1" class="col-sm-2">Word 1</label>
+              <input type="text" id="word1" size="50"
+                     placeholder="cornucopia"/>
+            </div>
+            <div class="form-group">
+              <label for="word2" class="col-sm-2">Word 2</label>
+              <input type="text" id="word2" size="50" placeholder="utopia"/>
+            </div>
+            <div class="form-group">
+              <div class="col-sm-offset-2 col-sm-10">
+                <button id="edit-button"class="btn btn-primary">
+                  Check 'em
+                </button>
+              </div>
+            </div>
+          </form>
+        </div><!-- col1 -->
+
+        <div class="col-md-6">
+          <div class="popout">
+            <p class="text-center constant-width">
+              <span id="word1-aligned">cornucopia</span><br />
+              <span id="word2-aligned">----utopia</span>
+            </p>
+            <p class="text-center">
+              Edit cost: <span class="constant-width" id="cost">6</span>
+            </p>
+          </div><!-- popout -->
+        </div><!-- col2 -->
+      </div><!-- row -->
+      <p><strong>Coming soon:</strong> more advanced examples</p>
+    </div> <!-- #main -->
+  </div> <!-- .container -->
+  
+  
+  <div class="container-fluid orange-top gradient">
+    <footer>
+      <p>
+	      &copy; 2016 Damian Satterthwaite-Phillips<br /><br />
+	      <a rel="license"
+           href="http://creativecommons.org/licenses/by-nc-sa/4.0/">
+	        <img alt="Creative Commons License" style="border-width:0" 
+	             src="https://i.creativecommons.org/l/by-nc-sa/4.0/88x31.png" />
+	      </a>
+	      <br /><br />
+	      <span xmlns:dct="http://purl.org/dc/terms/" property="dct:title">
+	        This webpage and its content
+	      </span> by 
+	      <a xmlns:cc="http://creativecommons.org/ns#"
+           href="http://www.phillips-research.com/"
+           property="cc:attributionName" rel="cc:attributionURL"><br />
+	        Damian Satterthwaite-Phillips
+	      </a><br />
+	      is licensed under a<br />
+	      <a rel="license"
+           href="http://creativecommons.org/licenses/by-nc-sa/4.0/">
+	        Creative Commons Attribution-NonCommercial-ShareAlike 4.0 
+	        International License
+	      </a>.
+      </p>
+    </footer>
+  </div>
+  <script>
+    (function(i,s,o,g,r,a,m){
+    i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+    (i[r].q=i[r].q||[]).push(arguments)
+    },
+    i[r].l=1*new Date();
+    a=s.createElement(o),
+    m=s.getElementsByTagName(o)[0];
+    a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+    
+    ga('create', 'UA-71667904-1', 'auto');
+    ga('send', 'pageview');    
+  </script>
+</body>
+
+
+</html>

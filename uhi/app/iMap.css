@@ -1,0 +1,54 @@
+#map-canvas {
+   position: absolute;
+   left: 50px;
+   top: 50px;
+   text-align: center;
+   height: 500px;
+   width: 1350px;
+   z-index: -1;
+}
+
+svg {
+   position: absolute;
+   left: 50px;
+   top: 50px;
+   border: thin black solid;
+   opacity: 0.8
+}
+
+#spacer {
+   height: 550px;
+}
+
+#stats-controls {
+   border-right: thin solid black;
+}
+
+button {
+   margin-top: 3px;
+}
+
+
+.center {
+   text-align: center;
+}
+
+footer {
+   font-family: "Gruppo", sans-serif;
+   font-size: 1.1em;
+   height: 500px;
+   color: #0df;
+   text-align: center;
+   margin: 3em 0;
+}
+
+.orange-top {
+   border-top: thin solid #FF8800;
+}
+
+.gradient {
+   background: -webkit-linear-gradient(left top, #000000, #444);
+   background: -o-linear-gradient(bottom right, #000000, #444);
+   background: -moz-linear-gradient(bottom right, #000000, #444);
+   background: linear-gradient(to bottom right, #000000, #444);
+}

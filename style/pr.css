@@ -124,6 +124,19 @@ footer {
    background: linear-gradient(to bottom right, #000000, #444);
 }
 
+.constant-width {
+    font-family: Monaco, Courier, monospace;
+}
+
+.popout {
+    border: thin solid #DDD;
+    border-radius: 20px;
+    background: white;
+    color: #000088;
+    margin: 0 5%;
+    padding: 20px;
+}
+
 
 
 /** Specific pages */
@@ -149,8 +162,8 @@ footer {
 
 /** Statistics */
 .img-button {
-   border-radius: 15px;
-   padding: 10px;
+    border-radius: 15px;
+    padding: 10px;
 }
 
 .pad-top {

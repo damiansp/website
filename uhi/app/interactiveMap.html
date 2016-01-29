@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" contents="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Eugene Area Temperatures</title>
+    <link rel="stylesheet" 
+	  href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css" />
+    <!-- optional bootstrap theme -->
+    <link rel="stylesheet"
+	  href="http://netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap-theme.min.css" />
+    <link rel="stylesheet"
+	  href="iMap.css" />
+    <link rel="stylesheet" href="http://phillips-research.com/style/pr.css" />
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js">
+    </script>
+    <script src="https://maps.googleapis.com/maps/api/js?v=3&key=AIzaSyAADOVmLUyc4ffePgqI35dqfWR9lfg7kIY"></script>
+    <script src="eugGoogleMap.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js">
+    </script>
+    <script src="http://d3js.org/d3.v3.min.js"></script>
+  </head>
+
+  <body>
+    <div id="map-canvas"></div>
+    <div id="spacer"></div>
+    
+
+
+    <div id="controls-container" class="container">
+      <h1>Heat Island Data for Eugene, OR</h1>
+      <p>Created by <a href="http://phillips-research.com/about.html">Damian Satterthwaite-Phillips</a> for the City of Eugene</p>
+      <p>
+    	Data from <a href="http://www.prism.oregonstate.edu/">PRISM Climate Data</a>. For details see 
+    	<a href="http://phillips-research.com/uhi/analysis1.html">here</a>.
+      </p>
+  
+      <div class="row">
+	<div id="stats-controls" class="col-md-8">
+	  <h3>Overlay Controls</h3>
+	  <div class="row">
+	    <div class="col-md-6">
+	      <h5>Data</h5>
+	      <div class="center">
+		<button id="ppt-button" class="btn btn-default" 
+			type="button">
+		  Precipitation
+		</button>
+		<br /><br />
+
+		<button id="min-temp-button" class="btn btn-default" 
+			type="button">
+		  Min. Temp. (Absolute)
+		</button>
+		<button id="max-temp-button" class="btn btn-default" 
+			type="button">
+		  Max. Temp. (Absolute)
+		</button>
+		<button id="temp-button" class="btn btn-default" type="button">
+		  Avg. Temp. (Absolute)
+		</button>
+		<br /><br />
+
+		<button id="min-temp-dev-button" class="btn btn-default" 
+			type="button">
+		  Min. Temp. (Deviation)
+		</button>
+		<button id="max-temp-dev-button" class="btn btn-default" 
+			type="button">
+		  Max. Temp. (Deviation)
+		</button>
+		<button id="temp-dev-button" class="btn btn-default" 
+			type="button">
+		  Avg. Temp. (Deviation)
+		</button>
+	      </div>
+	      <!-- .center -->
+	    </div>
+	    <!-- .col -->
+
+	    <div class="col-md-6">
+	      <h5>Transparency</h5>
+	      <input id="transparency" type="range" min="0" max="1" value="0.8"
+		     step="0.1" />
+	      <br />
+
+	      <h5>Date</h5>
+	      <p>
+		Currently showing: 
+		<span id="current-stat"></span> for 
+		<span id="current-date"></span>
+	      </p>
+	      <div class="form-group">
+		<div class="input-group">
+		  <input id="date-input" type="text" class="form-control"
+			 placeholder="e.g. 1/1, 12/31">
+		  <div id="date-button" 
+		       class="input-group-addon btn btn-default">
+		    /2014 (Click here to update)
+		  </div>
+		</div>
+	      </div>
+	      <br />
+	    </div>
+	    <!-- .col -->
+	    
+	    
+	  </div>
+	  <!-- .row -->
+	  <div class="row">
+	    <div class="col-md-12">
+	      <p>
+		<br />
+		Note:<br />
+		Absolute Temperatures color code relative to the entire year,
+		such that completely blue represents the annual minimum and 
+		completely red represents the annual maximum.<br />
+		Deviation, refers to how much each cell deviates from the daily
+		median temperature across all cells, so blue is the coldest 
+		cell for the day, and red is the hottest.
+	      </p>
+	    </div>
+	  </div>
+	  
+	</div>
+	<!-- #stats-control -->
+
+	<div id="map-controls" class="col-md-4">
+	  <h3>Base Map Controls</h3>
+	  <h5>Map Type</h5>
+	  <button id="satellite-button" class="btn btn-default" type="button">
+	    Satellite
+	  </button>
+	  <button id="terrain-button" class="btn btn-default" type="button">
+            Terrain
+          </button>
+	  <button id="road-map-button" class="btn btn-default" type="button">
+	    Road Map
+	  </button>
+	</div>
+	<!-- #map-controls -->
+	
+      </div>
+      <!-- .row -->
+    </div>
+    <!-- #controls-container -->
+    
+      <div class="container-fluid orange-top gradient">
+    <footer>
+      <p>
+        &copy; 2015 Damian Satterthwaite-Phillips<br /><br />
+        <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/">
+          <img alt="Creative Commons License" style="border-width:0"
+               src="https://i.creativecommons.org/l/by-nc-sa/4.0/88x31.png" />
+        </a>
+        <br /><br />
+        <span xmlns:dct="http://purl.org/dc/terms/" property="dct:title">
+          This webpage and its content
+        </span> by
+        <a xmlns:cc="http://creativecommons.org/ns#" href="http://www.phillips-research.com/" property="cc:attributionName" rel="cc:attributionURL"><br />
+          Damian Satterthwaite-Phillips
+        </a><br />
+	is licensed under a<br />
+        <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/">
+          Creative Commons Attribution-NonCommercial-ShareAlike 4.0
+          International License
+        </a>.
+      </p>
+    </footer>
+  </div>
+
+  </body>
+  <script src="interactiveMap.js"></script>
+  <script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-71667904-1', 'auto');
+  ga('send', 'pageview');
+
+</script>
+</html>
