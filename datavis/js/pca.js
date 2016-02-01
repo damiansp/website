@@ -73,8 +73,8 @@ d3.csv('pcaScores.csv', function(d) {
       // Axis settings
       var xAxis = { 'x1': minX, 'x2': maxX,
                     'y1': 0, 'y2': 0 },
-        yAxis = { 'x1': 0, 'x2': 0,
-                  'y1': minY, 'y2': maxY },
+          yAxis = { 'x1': 0, 'x2': 0,
+                    'y1': minY, 'y2': maxY },
           axes = [xAxis, yAxis];
           
 
@@ -90,8 +90,14 @@ d3.csv('pcaScores.csv', function(d) {
 
       // Updates
       svg.selectAll('circle')
-        .transition()
+        .transition(function(d, i) {
+            return 1000 / Math.sqrt(Math.pow(d[pcx], 2) + Math.pow(d[pcy], 2));
+        })
+        .delay(function(d, i) {
+            return Math.sqrt(Math.pow(d[pcx], 2) + Math.pow(d[pcy], 2)) * 100;
+        })
         .duration(500)
+        .ease('sin')
         .attr('cx', function(d) { return xScale(d[pcx]); })
         .attr('cy', function(d) { return yScale(d[pcy]); })
         .attr('r', r)
