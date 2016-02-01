@@ -14,10 +14,15 @@ var path = d3.geo.path()
 
 /**
  * Load data from a csv and generate choropleth from a given field
+ * @param elemID: the html element ID where the svg is to be appended
  * @param field: name of the field in the data to be represented
- * @param svgName: the name of the svg where the data are to be plotted
  * @param color1, color2: the endpoints of the color gradient to represent
  *        min and max values
+ * @param dispalyName: the name of the variable as it is to be displayed in t
+ *        the key
+ * @param gradientName: because each gradient will be kept in the namespace
+ *        for the page, each must have a unique identifier (otherwise only a
+ *        single gradient will be available for all keys)
  */
 function choropleth(elemID, field, color1, color2, displayName, gradientName) {
   //Create SVG element
