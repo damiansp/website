@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+  <meta http-equiv="X-UA-Compatible" contents="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>OKCupid Choropleths | Phillips Research & Analytics</title>
+  
+  <link
+     href="http://fonts.googleapis.com/css?family=Caudex|Ubuntu|Muli|Philosopher|Cinzel|Michroma|Julius+Sans+One|Forum|Gruppo|Marcellus+SC"
+     rel="stylesheet" type="text/css" />
+  <link rel="stylesheet"
+        href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css" />
+  <!-- optional bootstrap theme -->
+  <link rel="stylesheet"
+        href="http://netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap-theme.min.css" />
+  <link rel="stylesheet" href="http://phillips-research.com/style/pr.css" />
+  
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js">
+  </script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js">    
+  </script>
+  <script src="http://d3js.org/d3.v3.min.js"></script>
+</head>
+
+
+
+<body>
+  <div class="navbar navbar-inverse top-fix orange-bottom">
+    <div class="container-fluid">      
+      <div class="row">
+	      <div class="col-md-12">
+	        <div id="brand-bar">
+	          <!--<img src="images/logo/logoOrange.png" id="logo" />-->
+	          <h1 id="biz-name">Damian Satterthwaite-Phillips, PhD</h1>
+	        </div>
+	      </div>
+      </div><!-- navbar header, row -->
+      <div class="row orange-top grey-4">
+	      <div class="col-md-12">
+	        <ul class="nav navbar-nav">
+	          <li><a href="http://phillips-research.com/">Home</a></li>
+            <li class="dropdown">
+	            <a href="#" class="dropdown-toggle" data-toggle="dropdown" 
+		             role="button" aria-haspopup="true" aria-expanded="false">
+		            Statistics
+		            <span class="caret"></span>
+	            </a>
+	            <ul class="dropdown-menu nav navbar-inverse navbar-nav">
+		            <li>
+                  <a href="http://phillips-research.com/statistics.html">
+                    Statistics
+                  </a>
+                </li>
+		            <li>
+                  <a href="http://phillips-research.com/machine-learning.html">
+                    Machine Learning
+                  </a>
+                </li>
+	            </ul>
+	          </li><!-- dropdown (Stats) -->
+	          
+            <li>
+              <a href="http://phillips-research.com/data-visualization.html">
+                Data Visualization
+              </a>
+            </li>
+            <li class="dropdown">
+	            <a href="#" class="dropdown-toggle" data-toggle="dropdown"
+		             role="button" aria-haspopup="true" aria-expanded="false">
+		            Mapping
+		            <span class="caret"></span>
+	            </a>
+	            <ul class="dropdown-menu nav navbar-inverse navbar-nav">
+		            <li>
+                  <a href="http://phillips-research.com/web-mapping.html">
+                    Web Mapping
+                  </a>
+                </li>
+		            <li>
+                  <a href="http://phillips-research.com/gis.html">GIS</a>
+                </li>
+	            </ul>
+	          </li><!-- dropdown (Mapping) -->
+            <li>
+              <a href="http://phillips-research.com/language.html">
+                Language Tools
+              </a>
+            </li>
+            <li>
+              <a href="http://phillips-research.com/web-dev.html">
+                Web Development
+              </a>
+            </li>
+	          <li>
+              <a href="http://phillips-research.com/academia.html">
+                Academics
+              </a>
+            </li>
+            <li>
+              <a href="http://phillips-research.com/about.html">About</a>
+            </li>
+            <li>
+              <a href="http://phillips-research.com/probono.html">Pro Bono</a>
+            </li>
+	          <li>
+              <a href="http://phillips-research.com/contact.html">Contact</a>
+            </li>
+ 	        </ul>
+	      </div><!-- col-md-12  -->
+      </div><!-- row -->
+    </div><!-- container-fluid -->
+  </div><!-- navbar -->
+  
+  <div class="container">
+    <div id="main">
+      <h1>Choropleths from the OK Cupid Data Set</h1>
+      <p>
+        The following maps are based on my "OK Cupid" dataset (raw data
+        available
+        <a href="http://phillips-research.com/mapping/stateCupid.csv">
+          here</a>). For those of you unfamiliar with
+        <a href="http://www.okcupid.com/">OK Cupid</a>, it is a free online
+        dating site (and a well-designed one, too, I might add!).
+        Although these maps are based on actual data they should be
+        interpreted with a large grain of salt, as the entire data set includes
+        only 500 people, or an average of 10 people per state.  Meaning the
+        margin of error is quite large.  I may eventually getting around to
+        adding more data, but for now, these are mainly intended for fun and
+        illustrative purposes only. (Note that there are currently no data for
+        Wyoming or Vermont.)
+      </p>
+      <p>
+        It may also be worth mentioning that this is a sample of <em>users on
+          the OK Cupid website</em> which is almost certainly <em>not</em>
+        representative of each state or the overall population of the country.
+        I will prepare more information about the data set soon.
+      </p>
+      <p>
+        A "choropleth" is a color-coded map like those below, where the colors
+        correspond to the values of some variable of interest.
+      </p>
+      <div id="age">
+        <h3 class="text-center">Average Age of Users</h3>
+      </div>
+      <div id="match">
+        <h3 class="text-center">Average Personality Match with the Author</h3>
+      </div>
+      <!--
+      <div id="enemy">
+        <h3 class="text-center">Average "Enemy" Score with the Author</h3>
+      </div>
+      -->
+      <div id="attraction">
+        <h3 class="text-center">Author Average Attraction to Users</h3>
+      </div>
+      <div id="height">
+        <h3 class="text-center">Average Height of Users</h3>
+      </div>
+      <div id="multilingual">
+        <h3 class="text-center">Proportion of Multilingual Users</h3>
+      </div>
+      <div id="high-school">
+        <h3 class="text-center">
+          Proportion of Users with Only a High School Education
+        </h3>
+      </div>
+      <div id="post-grad">
+        <h3 class="text-center">
+          Proportion of Users with a Post-Graduate Education
+        </h3>
+      </div>
+      <div id="bisexual">
+        <h3 class="text-center">
+          Proportion of Users Identifying as Bisexual
+        </h3>
+      </div>
+      <div id="casual-sex">
+        <h3 class="text-center">
+          Proportion of Users Looking for Casual Sex
+        </h3>
+      </div>
+      <!--
+      <div id="overall">
+        <h3 class="text-center">
+          Author's Average Match with User Giving Personality and Attraction
+          Equal Weight
+        </h3>
+      </div>
+      -->
+      
+      
+      
+    </div> <!-- #main -->
+  </div> <!-- .container -->
+  
+  
+  <div class="container-fluid orange-top gradient">
+    <footer>
+      <p>
+	      &copy; 2016 Damian Satterthwaite-Phillips<br /><br />
+	      <a rel="license"
+           href="http://creativecommons.org/licenses/by-nc-sa/4.0/">
+	        <img alt="Creative Commons License" style="border-width:0" 
+	             src="https://i.creativecommons.org/l/by-nc-sa/4.0/88x31.png" />
+	      </a>
+	      <br /><br />
+	      <span xmlns:dct="http://purl.org/dc/terms/" property="dct:title">
+	        This webpage and its content
+	      </span> by 
+	      <a xmlns:cc="http://creativecommons.org/ns#"
+           href="http://www.phillips-research.com/"
+           property="cc:attributionName" rel="cc:attributionURL"><br />
+	        Damian Satterthwaite-Phillips
+	      </a><br />
+	      is licensed under a<br />
+	      <a rel="license"
+           href="http://creativecommons.org/licenses/by-nc-sa/4.0/">
+	        Creative Commons Attribution-NonCommercial-ShareAlike 4.0 
+	        International License
+	      </a>.
+      </p>
+    </footer>
+  </div>
+  <script src="okcChoropleth.js"></script>
+  <script>
+    (function(i,s,o,g,r,a,m){
+    i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+    (i[r].q=i[r].q||[]).push(arguments)
+    },
+    i[r].l=1*new Date();
+    a=s.createElement(o),
+    m=s.getElementsByTagName(o)[0];
+    a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+    
+    ga('create', 'UA-71667904-1', 'auto');
+    ga('send', 'pageview');    
+  </script>
+</body>
+
+
+</html>
